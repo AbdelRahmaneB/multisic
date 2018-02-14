@@ -1,0 +1,11 @@
+entity PlayList {
+	name String
+}
+
+entity Track {
+	name String
+}
+
+relationship ManyToOne {
+	PlayList{track} to Track
+}
