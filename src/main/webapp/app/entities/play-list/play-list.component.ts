@@ -9,10 +9,11 @@ import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-play-list',
-    templateUrl: './play-list.component.html'
+    templateUrl: './play-list.component.html',
+    styleUrls: ['play-list.css'],
 })
 export class PlayListComponent implements OnInit, OnDestroy {
-playLists: PlayList[];
+    playLists: PlayList[];
     currentAccount: any;
     eventSubscriber: Subscription;
 
@@ -21,8 +22,7 @@ playLists: PlayList[];
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {
-    }
+    ) {}
 
     loadAll() {
         this.playListService.query().subscribe(
@@ -34,7 +34,7 @@ playLists: PlayList[];
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInPlayLists();
@@ -48,7 +48,10 @@ playLists: PlayList[];
         return item.id;
     }
     registerChangeInPlayLists() {
-        this.eventSubscriber = this.eventManager.subscribe('playListListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe(
+            'playListListModification',
+            response => this.loadAll()
+        );
     }
 
     private onError(error) {
