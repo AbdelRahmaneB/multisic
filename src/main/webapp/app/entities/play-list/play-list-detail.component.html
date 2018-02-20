@@ -10,9 +10,9 @@
         </dd>
         <dt><span>Track</span></dt>
         <dd>
-            <div *ngIf="playList.track">
-                <a [routerLink]="['/track', playList.track?.id]">{{playList.track?.id}}</a>
-            </div>
+            <span *ngFor="let track of playList.tracks; let last = last">
+                <a [routerLink]="['/track', track?.id ]">{{track.id}}</a>{{last ? '' : ', '}}
+            </span>
         </dd>
     </dl>
 

@@ -1,11 +1,14 @@
 package ca.polymtl.log8430.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -24,6 +27,23 @@ public class Track implements Serializable {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "album")
+    private String album;
+
+    @Column(name = "artist")
+    private String artist;
+
+    @Column(name = "imagesurl")
+    private String imagesurl;
+
+    @Column(name = "previewurl")
+    private String previewurl;
+
+    @ManyToMany(mappedBy = "tracks")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<PlayList> playlists = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -45,6 +65,83 @@ public class Track implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public Track album(String album) {
+        this.album = album;
+        return this;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public Track artist(String artist) {
+        this.artist = artist;
+        return this;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public String getImagesurl() {
+        return imagesurl;
+    }
+
+    public Track imagesurl(String imagesurl) {
+        this.imagesurl = imagesurl;
+        return this;
+    }
+
+    public void setImagesurl(String imagesurl) {
+        this.imagesurl = imagesurl;
+    }
+
+    public String getPreviewurl() {
+        return previewurl;
+    }
+
+    public Track previewurl(String previewurl) {
+        this.previewurl = previewurl;
+        return this;
+    }
+
+    public void setPreviewurl(String previewurl) {
+        this.previewurl = previewurl;
+    }
+
+    public Set<PlayList> getPlaylists() {
+        return playlists;
+    }
+
+    public Track playlists(Set<PlayList> playLists) {
+        this.playlists = playLists;
+        return this;
+    }
+
+    public Track addPlaylist(PlayList playList) {
+        this.playlists.add(playList);
+        playList.getTracks().add(this);
+        return this;
+    }
+
+    public Track removePlaylist(PlayList playList) {
+        this.playlists.remove(playList);
+        playList.getTracks().remove(this);
+        return this;
+    }
+
+    public void setPlaylists(Set<PlayList> playLists) {
+        this.playlists = playLists;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -73,6 +170,10 @@ public class Track implements Serializable {
         return "Track{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", album='" + getAlbum() + "'" +
+            ", artist='" + getArtist() + "'" +
+            ", imagesurl='" + getImagesurl() + "'" +
+            ", previewurl='" + getPreviewurl() + "'" +
             "}";
     }
 }

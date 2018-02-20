@@ -27,9 +27,9 @@
                 <td><a [routerLink]="['../play-list', playList.id ]">{{playList.id}}</a></td>
                 <td>{{playList.name}}</td>
                 <td>
-                    <div *ngIf="playList.track">
-                        <a [routerLink]="['../track', playList.track?.id ]" >{{playList.track?.id}}</a>
-                    </div>
+                    <span *ngFor="let track of playList.tracks; let last = last">
+                            <a class="form-control-static" [routerLink]="['../track', track?.id ]">{{track.id}}</a>{{last ? '' : ', '}}
+                        </span>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

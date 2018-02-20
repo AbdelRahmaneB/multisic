@@ -9,6 +9,7 @@ import { MultisicTestModule } from '../../../test.module';
 import { TrackDialogComponent } from '../../../../../../main/webapp/app/entities/track/track-dialog.component';
 import { TrackService } from '../../../../../../main/webapp/app/entities/track/track.service';
 import { Track } from '../../../../../../main/webapp/app/entities/track/track.model';
+import { PlayListService } from '../../../../../../main/webapp/app/entities/play-list';
 
 describe('Component Tests', () => {
 
@@ -24,6 +25,7 @@ describe('Component Tests', () => {
                 imports: [MultisicTestModule],
                 declarations: [TrackDialogComponent],
                 providers: [
+                    PlayListService,
                     TrackService
                 ]
             })

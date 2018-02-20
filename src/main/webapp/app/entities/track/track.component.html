@@ -18,6 +18,10 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Name</span></th>
+            <th><span>Album</span></th>
+            <th><span>Artist</span></th>
+            <th><span>Imagesurl</span></th>
+            <th><span>Previewurl</span></th>
             <th></th>
             </tr>
             </thead>
@@ -25,6 +29,10 @@
             <tr *ngFor="let track of tracks ;trackBy: trackId">
                 <td><a [routerLink]="['../track', track.id ]">{{track.id}}</a></td>
                 <td>{{track.name}}</td>
+                <td>{{track.album}}</td>
+                <td>{{track.artist}}</td>
+                <td>{{track.imagesurl}}</td>
+                <td>{{track.previewurl}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
