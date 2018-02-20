@@ -1,0 +1,29 @@
+.playlists {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+.nav-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.menu-button {
+    width: 100%;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    color: #533f03;
+    font-size: 24px;
+    border-radius: 4px;
+}
+.menu-button:hover {
+    background-color: #c3c5c8;
+    cursor: pointer;
+}
+
+.fa-search {
+    color: #533f03;
+}
