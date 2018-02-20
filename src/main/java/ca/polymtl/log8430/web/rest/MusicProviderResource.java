@@ -36,7 +36,7 @@ public class MusicProviderResource {
      */
     @GetMapping("/music-providers")
     @Timed
-    public String[] getAllMusicProviders() {
+    public List<String> getAllMusicProviders() {
         return musicProviderService.getAllMusicProviders();
     }
 
@@ -47,7 +47,7 @@ public class MusicProviderResource {
      */
     @GetMapping("/music-providers/search")
     @Timed
-    public List<Track> search(String query) {
-        return musicProviderService.search(query);
+    public List<Track> search(@RequestParam(required = false) String query, @RequestParam String provider) {
+        return musicProviderService.search(query, provider);
     }
 }
