@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class DeezerProviderService extends APIProviderService {
+public class DeezerProviderService implements APIProviderService {
 
     private final Logger log = LoggerFactory.getLogger(DeezerProviderService.class);
 

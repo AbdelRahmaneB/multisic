@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Service class for managing music providers.
@@ -21,23 +22,25 @@ public class MusicProviderService {
 
     private final Logger log = LoggerFactory.getLogger(MusicProviderService.class);
 
-    private final HashMap<String, APIProviderService> providersService;
+    private final List<APIProviderService> providers;
 
-    public MusicProviderService(SpotifyProviderService spotify, NapsterProviderService napster, DeezerProviderService deezer) {
-        this.providersService = new HashMap<>();
-        this.providersService.put(spotify.getProviderName(), spotify);
-        this.providersService.put(napster.getProviderName(), napster);
-        this.providersService.put(deezer.getProviderName(), deezer);
-
+    public MusicProviderService(List<APIProviderService> providers) {
+        this.providers = providers;
     }
 
     @Transactional(readOnly = true)
     public List<String> getAllMusicProviders() {
-        return new ArrayList(providersService.keySet());
+        return providers.stream()
+            .map(APIProviderService::getProviderName)
+            .collect(Collectors.toList());
     }
 
-    public List<Track> search(String query, String provider) {
-        return providersService.get(provider).search(query);
+    public List<Track> search(String query, String providerName) {
+        return providers.stream()
+            .filter(p -> p.getProviderName().equals(providerName))
+            .findFirst()
+            .get()
+            .search(query);
     }
 
 

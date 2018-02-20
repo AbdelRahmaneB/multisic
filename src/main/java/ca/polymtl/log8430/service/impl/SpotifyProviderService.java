@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SpotifyProviderService extends APIProviderService {
+public class SpotifyProviderService implements APIProviderService {
 
     private final Logger log = LoggerFactory.getLogger(SpotifyProviderService.class);
 

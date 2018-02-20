@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class NapsterProviderService extends APIProviderService {
+public class NapsterProviderService implements APIProviderService {
 
     private final Logger log = LoggerFactory.getLogger(NapsterProviderService.class);
 

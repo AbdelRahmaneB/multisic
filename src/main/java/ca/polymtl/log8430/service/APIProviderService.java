@@ -4,7 +4,7 @@ import ca.polymtl.log8430.domain.Track;
 
 import java.util.List;
 
-public abstract class APIProviderService {
-    public abstract List<Track> search(String query);
-    public abstract String getProviderName();
+public interface APIProviderService {
+    List<Track> search(String query);
+    String getProviderName();
 }
