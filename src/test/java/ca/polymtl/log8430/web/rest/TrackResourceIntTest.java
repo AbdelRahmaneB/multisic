@@ -41,6 +41,18 @@ public class TrackResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ALBUM = "AAAAAAAAAA";
+    private static final String UPDATED_ALBUM = "BBBBBBBBBB";
+
+    private static final String DEFAULT_ARTIST = "AAAAAAAAAA";
+    private static final String UPDATED_ARTIST = "BBBBBBBBBB";
+
+    private static final String DEFAULT_IMAGESURL = "AAAAAAAAAA";
+    private static final String UPDATED_IMAGESURL = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PREVIEWURL = "AAAAAAAAAA";
+    private static final String UPDATED_PREVIEWURL = "BBBBBBBBBB";
+
     @Autowired
     private TrackRepository trackRepository;
 
@@ -79,7 +91,11 @@ public class TrackResourceIntTest {
      */
     public static Track createEntity(EntityManager em) {
         Track track = new Track()
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .album(DEFAULT_ALBUM)
+            .artist(DEFAULT_ARTIST)
+            .imagesurl(DEFAULT_IMAGESURL)
+            .previewurl(DEFAULT_PREVIEWURL);
         return track;
     }
 
@@ -104,6 +120,10 @@ public class TrackResourceIntTest {
         assertThat(trackList).hasSize(databaseSizeBeforeCreate + 1);
         Track testTrack = trackList.get(trackList.size() - 1);
         assertThat(testTrack.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testTrack.getAlbum()).isEqualTo(DEFAULT_ALBUM);
+        assertThat(testTrack.getArtist()).isEqualTo(DEFAULT_ARTIST);
+        assertThat(testTrack.getImagesurl()).isEqualTo(DEFAULT_IMAGESURL);
+        assertThat(testTrack.getPreviewurl()).isEqualTo(DEFAULT_PREVIEWURL);
     }
 
     @Test
@@ -136,7 +156,11 @@ public class TrackResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(track.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].album").value(hasItem(DEFAULT_ALBUM.toString())))
+            .andExpect(jsonPath("$.[*].artist").value(hasItem(DEFAULT_ARTIST.toString())))
+            .andExpect(jsonPath("$.[*].imagesurl").value(hasItem(DEFAULT_IMAGESURL.toString())))
+            .andExpect(jsonPath("$.[*].previewurl").value(hasItem(DEFAULT_PREVIEWURL.toString())));
     }
 
     @Test
@@ -150,7 +174,11 @@ public class TrackResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(track.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.album").value(DEFAULT_ALBUM.toString()))
+            .andExpect(jsonPath("$.artist").value(DEFAULT_ARTIST.toString()))
+            .andExpect(jsonPath("$.imagesurl").value(DEFAULT_IMAGESURL.toString()))
+            .andExpect(jsonPath("$.previewurl").value(DEFAULT_PREVIEWURL.toString()));
     }
 
     @Test
@@ -173,7 +201,11 @@ public class TrackResourceIntTest {
         // Disconnect from session so that the updates on updatedTrack are not directly saved in db
         em.detach(updatedTrack);
         updatedTrack
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .album(UPDATED_ALBUM)
+            .artist(UPDATED_ARTIST)
+            .imagesurl(UPDATED_IMAGESURL)
+            .previewurl(UPDATED_PREVIEWURL);
 
         restTrackMockMvc.perform(put("/api/tracks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -185,6 +217,10 @@ public class TrackResourceIntTest {
         assertThat(trackList).hasSize(databaseSizeBeforeUpdate);
         Track testTrack = trackList.get(trackList.size() - 1);
         assertThat(testTrack.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testTrack.getAlbum()).isEqualTo(UPDATED_ALBUM);
+        assertThat(testTrack.getArtist()).isEqualTo(UPDATED_ARTIST);
+        assertThat(testTrack.getImagesurl()).isEqualTo(UPDATED_IMAGESURL);
+        assertThat(testTrack.getPreviewurl()).isEqualTo(UPDATED_PREVIEWURL);
     }
 
     @Test

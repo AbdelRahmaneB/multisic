@@ -6,6 +6,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -25,8 +27,12 @@ public class PlayList implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    private Track track;
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "play_list_track",
+               joinColumns = @JoinColumn(name="play_lists_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="tracks_id", referencedColumnName="id"))
+    private Set<Track> tracks = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -50,17 +56,29 @@ public class PlayList implements Serializable {
         this.name = name;
     }
 
-    public Track getTrack() {
-        return track;
+    public Set<Track> getTracks() {
+        return tracks;
     }
 
-    public PlayList track(Track track) {
-        this.track = track;
+    public PlayList tracks(Set<Track> tracks) {
+        this.tracks = tracks;
         return this;
     }
 
-    public void setTrack(Track track) {
-        this.track = track;
+    public PlayList addTrack(Track track) {
+        this.tracks.add(track);
+        track.getPlaylists().add(this);
+        return this;
+    }
+
+    public PlayList removeTrack(Track track) {
+        this.tracks.remove(track);
+        track.getPlaylists().remove(this);
+        return this;
+    }
+
+    public void setTracks(Set<Track> tracks) {
+        this.tracks = tracks;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

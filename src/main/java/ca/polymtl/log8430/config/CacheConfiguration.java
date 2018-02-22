@@ -44,6 +44,8 @@ public class CacheConfiguration {
             cm.createCache(ca.polymtl.log8430.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(ca.polymtl.log8430.domain.PlayList.class.getName(), jcacheConfiguration);
             cm.createCache(ca.polymtl.log8430.domain.Track.class.getName(), jcacheConfiguration);
+            cm.createCache(ca.polymtl.log8430.domain.PlayList.class.getName() + ".tracks", jcacheConfiguration);
+            cm.createCache(ca.polymtl.log8430.domain.Track.class.getName() + ".playlists", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
