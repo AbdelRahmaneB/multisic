@@ -86,7 +86,7 @@ public class PlayListResource {
     @Timed
     public List<PlayList> getAllPlayLists() {
         log.debug("REST request to get all PlayLists");
-        return playListRepository.findAll();
+        return playListRepository.findAllWithEagerRelationships();
         }
 
     /**
@@ -99,7 +99,7 @@ public class PlayListResource {
     @Timed
     public ResponseEntity<PlayList> getPlayList(@PathVariable Long id) {
         log.debug("REST request to get PlayList : {}", id);
-        PlayList playList = playListRepository.findOne(id);
+        PlayList playList = playListRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(playList));
     }
 

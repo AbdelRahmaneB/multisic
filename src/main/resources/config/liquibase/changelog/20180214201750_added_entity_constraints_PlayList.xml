@@ -8,11 +8,16 @@
     -->
     <changeSet id="20180214201750-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="track_id"
-                                 baseTableName="play_list"
-                                 constraintName="fk_play_list_track_id"
+        <addForeignKeyConstraint baseColumnNames="play_lists_id"
+                                 baseTableName="play_list_track"
+                                 constraintName="fk_play_list_track_play_lists_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="play_list"/>
+        <addForeignKeyConstraint baseColumnNames="tracks_id"
+                                 baseTableName="play_list_track"
+                                 constraintName="fk_play_list_track_tracks_id"
                                  referencedColumnNames="id"
                                  referencedTableName="track"/>
-
+        
     </changeSet>
 </databaseChangeLog>

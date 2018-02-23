@@ -4,8 +4,12 @@ entity PlayList {
 
 entity Track {
 	name String
+	album String
+	artist String
+	images_url String
+	preview_url String
 }
 
-relationship ManyToOne {
-	PlayList{track} to Track
+relationship ManyToMany {
+	PlayList{track} to Track{playlist}
 }

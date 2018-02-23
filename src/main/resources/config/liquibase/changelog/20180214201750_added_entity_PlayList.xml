@@ -26,12 +26,19 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="track_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        
+        <createTable tableName="play_list_track">
+            <column name="tracks_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="play_lists_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="play_lists_id, tracks_id" tableName="play_list_track"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

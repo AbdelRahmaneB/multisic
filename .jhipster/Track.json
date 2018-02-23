@@ -1,9 +1,33 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "playlist",
+            "otherEntityName": "playList",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "track"
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "album",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "artist",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imagesurl",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "previewurl",
             "fieldType": "String"
         }
     ],

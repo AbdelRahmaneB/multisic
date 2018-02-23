@@ -26,6 +26,22 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="album" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="artist" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="imagesurl" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="previewurl" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         
