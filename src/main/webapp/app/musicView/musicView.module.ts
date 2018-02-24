@@ -12,6 +12,7 @@ import { MultisicMusicSidebarModule } from './music-sidebar/music-sidebar.module
 import { MultisicTrackModule } from './track/track.module';
 import { PlaylistViewComponent } from './playlist-view/playlist-view.component';
 import { SearchMusicViewComponent } from './search-music-view/search-music-view.component';
+import { AudioPlayerComponent } from './audio-player/audio-player.component';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 const MUSIC_STATES = [...musicViewRoutes];
@@ -28,6 +29,7 @@ const MUSIC_STATES = [...musicViewRoutes];
         MusicSidebarComponent,
         PlaylistViewComponent,
         SearchMusicViewComponent,
+        AudioPlayerComponent,
     ],
     entryComponents: [MusicViewComponent],
     providers: [PlayListService, PlayListPopupService, SearchMusicService],
