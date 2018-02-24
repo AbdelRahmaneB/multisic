@@ -31,12 +31,25 @@ input {
 }
 
 .sub-search-results {
-    max-height: 500px;
-    overflow-y: scroll;
-    margin: 10px 0;
+    margin: 10px 0 25px 0;
 }
 
 .search-result-title {
     color: grey;
     font-size: 20px;
+}
+
+.search-result-tracks {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+table {
+    width: 100%;
+}
+th,
+td {
+    padding: 5px 0;
+    text-align: left;
+    max-width: 300px;
 }

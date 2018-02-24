@@ -8,7 +8,22 @@
 <div class="search-results" *ngFor="let provider of availableProviders">
   <h3 class="search-result-title">{{provider}}</h3>
   <div *ngIf="searchResults.hasOwnProperty(provider)" class="sub-search-results">
-    <div *ngFor="let result of searchResults[provider]">{{result.name}}</div>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let result of searchResults[provider]">
+        <td>{{result.name}}</td>
+        <td>{{result.artist}}</td>
+        <td>{{result.album}}</td>
+        <td>
+          <span class="fa fa-plus fa-lg"></span>
+        </td>
+      </tr>
+    </table>
   </div>
   <div *ngIf="!searchResults.hasOwnProperty(provider)" class="sub-search-results">
     <span>No results found</span>
