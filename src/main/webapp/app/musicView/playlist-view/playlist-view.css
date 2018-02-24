@@ -12,11 +12,10 @@ td {
     max-width: 300px;
 }
 
-.track:hover {
-    background-color: #c3c5c8;
-    cursor: pointer;
-}
-
 .fa-trash {
     padding: 5px;
+}
+
+.selectedTrack {
+    background-color: #c3c5c8;
 }

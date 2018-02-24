@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { PlayList } from './music-sidebar/play-list.model';
+import { Track } from './track/track.model';
 import { PlayListService } from './music-sidebar/play-list.service';
 import { Principal } from '../shared';
 
@@ -18,6 +19,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
     selectedPlaylist: PlayList;
     isSearchMusicSelected: boolean;
+    playingTrack: Track;
 
     constructor(
         private playListService: PlayListService,
@@ -64,6 +66,16 @@ export class MusicViewComponent implements OnInit, OnDestroy {
         this.selectedPlaylist = this.playLists.find(
             item => item.id === playlistId
         );
+    }
+
+    changeTrack(trackId) {
+        let foundTrack: Track = this.selectedPlaylist.tracks.find(
+            track => track.id === trackId
+        );
+        this.playingTrack = foundTrack;
+        // TODO pass to player child (song link)
+        console.log('CHANGE TRACK: ');
+        console.log(foundTrack);
     }
 
     browseMusic(searchMusic) {

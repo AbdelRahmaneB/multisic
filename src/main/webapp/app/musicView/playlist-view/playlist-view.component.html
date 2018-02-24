@@ -8,7 +8,7 @@
         <th>Album</th>
         <th></th>
       </tr>
-      <tr *ngFor="let track of playlist.tracks" class="track">
+      <tr *ngFor="let track of playlist.tracks" [ngClass]="{selectedTrack: track.id === selectedTrackId}" (click)="changeSong(track.id)">
         <td>{{track.name}}</td>
         <td>{{track.artist}}</td>
         <td>{{track.album}}</td>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PlayList } from '../music-sidebar/play-list.model';
 
 @Component({
@@ -8,7 +8,14 @@ import { PlayList } from '../music-sidebar/play-list.model';
 })
 export class PlaylistViewComponent implements OnInit {
     @Input() playlist: PlayList;
+    @Output() newTrackId = new EventEmitter<number>();
+    selectedTrackId: number;
     constructor() {}
 
     ngOnInit() {}
+
+    changeSong(trackId) {
+        this.selectedTrackId = trackId;
+        this.newTrackId.emit(trackId);
+    }
 }

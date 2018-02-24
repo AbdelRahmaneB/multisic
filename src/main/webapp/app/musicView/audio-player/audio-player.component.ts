@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Track } from '../track/track.model';
 
 @Component({
     selector: 'jhi-audio-player',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['audio-player.css'],
 })
 export class AudioPlayerComponent implements OnInit {
-    media: any;
+    @Input() playingTrack: Track;
     constructor() {}
 
     ngOnInit() {}
+
+    playNextSong() {
+        //TODO play next song
+        console.log('PLAY NEXT SONG');
+    }
 }
