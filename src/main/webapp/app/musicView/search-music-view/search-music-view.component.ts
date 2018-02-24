@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { Track } from '../track/track.model';
@@ -10,9 +10,11 @@ import { SearchMusicService } from './search-music.service';
     styleUrls: ['search-music-view.css'],
 })
 export class SearchMusicViewComponent implements OnInit {
+    @Output() newTrack = new EventEmitter<Track>();
     availableProviders: string[];
     searchResults: any = {};
     currentAccount: any;
+    playingTrackId: number;
 
     constructor(
         private searchMusicService: SearchMusicService,
@@ -42,6 +44,11 @@ export class SearchMusicViewComponent implements OnInit {
 
     ngOnInit() {
         this.loadAll();
+    }
+
+    playTrack(track) {
+        this.playingTrackId = track.id;
+        this.newTrack.emit(track);
     }
 
     private onError(error) {

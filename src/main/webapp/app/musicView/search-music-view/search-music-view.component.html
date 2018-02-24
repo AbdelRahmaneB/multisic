@@ -16,7 +16,7 @@
           <th>Album</th>
           <th></th>
         </tr>
-        <tr *ngFor="let result of searchResults[provider]">
+        <tr *ngFor="let result of searchResults[provider]" [ngClass]="{selectedTrack: result.id === playingTrackId}" (click)="playTrack(result)">
           <td>{{result.name}}</td>
           <td>{{result.artist}}</td>
           <td>{{result.album}}</td>

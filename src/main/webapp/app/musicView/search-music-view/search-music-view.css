@@ -51,11 +51,15 @@ table {
 }
 th,
 td {
-    padding: 5px 0;
+    padding: 5px;
     text-align: left;
     max-width: 300px;
 }
 
 .no-search-results {
     padding: 5px 0;
+}
+
+.selectedTrack {
+    background-color: #c3c5c8;
 }

@@ -1,5 +1,5 @@
 <div class="audio-player">
-  <audio #media id="singleAudio" preload="auto" controls on-ended="playNextSong()">
-    <source src="http://static.videogular.com/assets/audios/videogular.mp3" type="audio/mpeg">
+  <audio #audio id="singleAudio" preload="auto" controls on-ended="playNextSong()" on-play="play()" on-pause="pause()">
+    <source src="" type="audio/mpeg">
   </audio>
 </div>

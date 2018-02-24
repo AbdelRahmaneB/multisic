@@ -3,16 +3,16 @@
         <jhi-music-sidebar [playLists]="playLists" (getPlaylistChange)="changePlaylist($event)" (getIsSearchMusic)="browseMusic($event)"></jhi-music-sidebar>
     </div>
     <div class="col-md-8 col-sm-7 playlistView">
-        <div *ngIf="isSearchMusicSelected">
-            <jhi-search-music-view></jhi-search-music-view>
+        <div [ngClass]="{hide: !isSearchMusicSelected}">
+            <jhi-search-music-view (newTrack)=changeTrack($event)></jhi-search-music-view>
         </div>
-        <div *ngIf="selectedPlaylist">
-            <jhi-playlist-view [playlist]="selectedPlaylist" (newTrackId)=changeTrack($event)></jhi-playlist-view>
+        <div [ngClass]="{hide: !selectedPlaylist}">
+            <jhi-playlist-view [playlist]="selectedPlaylist" (newTrack)=changeTrack($event)></jhi-playlist-view>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12 col-sm-12">
-        <jhi-audio-player [playingTrack]="playingTrack"></jhi-audio-player>
+        <jhi-audio-player [playingTrack]="selectedTrack" [selectedPlaylist]="selectedPlaylist"></jhi-audio-player>
     </div>
 </div>

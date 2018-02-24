@@ -1,3 +1,8 @@
 .playlistView {
     padding: 0 25px;
 }
+
+.hide {
+    visibility: hidden;
+    height: 0;
+}

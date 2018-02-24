@@ -1,6 +1,6 @@
 <div class="playlist">
-  <h2>{{playlist.name}}</h2>
-  <div *ngIf="playlist.tracks && playlist.tracks.length > 0">
+  <h2>{{playlist?.name}}</h2>
+  <div *ngIf="playlist?.tracks && playlist?.tracks.length > 0">
     <table class="track-list">
       <tr>
         <th>Name</th>
@@ -8,17 +8,17 @@
         <th>Album</th>
         <th></th>
       </tr>
-      <tr *ngFor="let track of playlist.tracks" [ngClass]="{selectedTrack: track.id === selectedTrackId}" (click)="changeSong(track.id)">
-        <td>{{track.name}}</td>
-        <td>{{track.artist}}</td>
-        <td>{{track.album}}</td>
+      <tr *ngFor="let track of playlist?.tracks" [ngClass]="{selectedTrack: track?.id === selectedTrackId}" (click)="changeSong(track)">
+        <td>{{track?.name}}</td>
+        <td>{{track?.artist}}</td>
+        <td>{{track?.album}}</td>
         <td>
           <span class="fa fa-trash fa-lg"></span>
         </td>
       </tr>
     </table>
   </div>
-  <div *ngIf="playlist.tracks.length === 0" class="empty-list">
-    <span>No tracks found in {{playlist.name}} playlist</span>
+  <div *ngIf="playlist?.tracks.length === 0" class="empty-list">
+    <span>No tracks found in {{playlist?.name}} playlist</span>
   </div>
 </div>

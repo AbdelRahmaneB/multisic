@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PlayList } from '../music-sidebar/play-list.model';
+import { Track } from '../track/track.model';
 
 @Component({
     selector: 'jhi-playlist-view',
@@ -8,14 +9,14 @@ import { PlayList } from '../music-sidebar/play-list.model';
 })
 export class PlaylistViewComponent implements OnInit {
     @Input() playlist: PlayList;
-    @Output() newTrackId = new EventEmitter<number>();
+    @Output() newTrack = new EventEmitter<Track>();
     selectedTrackId: number;
     constructor() {}
 
     ngOnInit() {}
 
-    changeSong(trackId) {
-        this.selectedTrackId = trackId;
-        this.newTrackId.emit(trackId);
+    changeSong(track) {
+        this.selectedTrackId = track.id;
+        this.newTrack.emit(track);
     }
 }

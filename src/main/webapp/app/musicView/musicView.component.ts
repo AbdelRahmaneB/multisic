@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
@@ -8,18 +8,27 @@ import { Track } from './track/track.model';
 import { PlayListService } from './music-sidebar/play-list.service';
 import { Principal } from '../shared';
 
+import { AudioPlayerComponent } from './audio-player/audio-player.component';
+import { PlaylistViewComponent } from './playlist-view/playlist-view.component';
+import { SearchMusicViewComponent } from './search-music-view/search-music-view.component';
+
 @Component({
     selector: 'jhi-music-view',
     templateUrl: './musicView.component.html',
     styleUrls: ['musicView.css'],
 })
 export class MusicViewComponent implements OnInit, OnDestroy {
+    @ViewChild(AudioPlayerComponent) audioPlayer: AudioPlayerComponent;
+    @ViewChild(PlaylistViewComponent) playlistView: PlaylistViewComponent;
+    @ViewChild(SearchMusicViewComponent)
+    searchMusicView: SearchMusicViewComponent;
+
     playLists: PlayList[];
     currentAccount: any;
     eventSubscriber: Subscription;
     selectedPlaylist: PlayList;
     isSearchMusicSelected: boolean;
-    playingTrack: Track;
+    selectedTrack: Track;
 
     constructor(
         private playListService: PlayListService,
@@ -68,14 +77,19 @@ export class MusicViewComponent implements OnInit, OnDestroy {
         );
     }
 
-    changeTrack(trackId) {
-        let foundTrack: Track = this.selectedPlaylist.tracks.find(
-            track => track.id === trackId
-        );
-        this.playingTrack = foundTrack;
-        // TODO pass to player child (song link)
-        console.log('CHANGE TRACK: ');
-        console.log(foundTrack);
+    changeTrack(track) {
+        if (this.isSearchMusicSelected) {
+            this.playlistView.selectedTrackId = null;
+        } else {
+            this.searchMusicView.playingTrackId = null;
+        }
+        this.selectedTrack = track;
+        this.audioPlayer.selectTrack(track);
+    }
+
+    playTrack(track) {
+        this.selectedTrack = track;
+        this.audioPlayer.playTrack(track);
     }
 
     browseMusic(searchMusic) {
