@@ -5,6 +5,7 @@ import { MultisicSharedModule } from '../shared';
 import { MusicViewComponent, musicViewRoutes } from './';
 import { PlayListService } from './music-sidebar/play-list.service';
 import { PlayListPopupService } from './music-sidebar/play-list-popup.service';
+import { SearchMusicService } from './search-music-view/search-music.service';
 import { MusicSidebarComponent } from './music-sidebar/music-sidebar.component';
 
 import { MultisicMusicSidebarModule } from './music-sidebar/music-sidebar.module';
@@ -22,9 +23,14 @@ const MUSIC_STATES = [...musicViewRoutes];
         MultisicTrackModule,
         RouterModule.forChild(MUSIC_STATES),
     ],
-    declarations: [MusicViewComponent, MusicSidebarComponent, PlaylistViewComponent, SearchMusicViewComponent],
+    declarations: [
+        MusicViewComponent,
+        MusicSidebarComponent,
+        PlaylistViewComponent,
+        SearchMusicViewComponent,
+    ],
     entryComponents: [MusicViewComponent],
-    providers: [PlayListService, PlayListPopupService],
+    providers: [PlayListService, PlayListPopupService, SearchMusicService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MultisicMusicViewModule {}

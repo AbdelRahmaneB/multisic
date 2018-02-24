@@ -25,3 +25,18 @@ input {
     flex-grow: 1;
     align-self: stretch;
 }
+
+.search-results {
+    width: 100%;
+}
+
+.sub-search-results {
+    max-height: 500px;
+    overflow-y: scroll;
+    margin: 10px 0;
+}
+
+.search-result-title {
+    color: grey;
+    font-size: 20px;
+}
