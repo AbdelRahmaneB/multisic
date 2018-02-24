@@ -1,8 +1,11 @@
 <div class="row">
     <div class="col-md-4 col-sm-5">
-        <jhi-music-sidebar [playLists]="playLists" (getPlaylistChange)="changePlaylist($event)"></jhi-music-sidebar>
+        <jhi-music-sidebar [playLists]="playLists" (getPlaylistChange)="changePlaylist($event)" (getIsSearchMusic)="browseMusic($event)"></jhi-music-sidebar>
     </div>
     <div class="col-md-8 col-sm-7 playlistView">
+        <div *ngIf="isSearchMusicSelected">
+            <jhi-search-music-view></jhi-search-music-view>
+        </div>
         <div *ngIf="selectedPlaylist">
             <jhi-playlist-view [playlist]="selectedPlaylist"></jhi-playlist-view>
         </div>

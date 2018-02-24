@@ -5,7 +5,7 @@
         </div>
         <div>
             <!--TODO change router to open search component-->
-            <button class="menu-button search-new-music text-left" [routerLink]="['/', { outlets: { popup: ['play-list-new'] } }]">
+            <button class="menu-button search-new-music text-left" (click)="browseMusic()">
                 <span class="fa fa-search"></span>
                 <span>
                     Browse

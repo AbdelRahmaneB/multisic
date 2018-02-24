@@ -3,28 +3,26 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { PlayList } from './music-sidebar/play-list.model';
-import { PlayListService } from './music-sidebar/play-list.service';
-import { Principal } from '../shared';
+import { PlayList } from './play-list.model';
+import { PlayListService } from './play-list.service';
+import { Principal } from '../../shared';
 
 @Component({
-    selector: 'jhi-music-view',
-    templateUrl: './musicView.component.html',
-    styleUrls: ['musicView.css'],
+    selector: 'jhi-play-list',
+    templateUrl: './play-list.component.html'
 })
-export class MusicViewComponent implements OnInit, OnDestroy {
-    playLists: PlayList[];
+export class PlayListComponent implements OnInit, OnDestroy {
+playLists: PlayList[];
     currentAccount: any;
     eventSubscriber: Subscription;
-    selectedPlaylist: PlayList;
-    isSearchMusicSelected: boolean;
 
     constructor(
         private playListService: PlayListService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {}
+    ) {
+    }
 
     loadAll() {
         this.playListService.query().subscribe(
@@ -36,7 +34,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then(account => {
+        this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
         this.registerChangeInPlayLists();
@@ -50,25 +48,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
         return item.id;
     }
     registerChangeInPlayLists() {
-        this.eventSubscriber = this.eventManager.subscribe(
-            'playListListModification',
-            response => this.loadAll()
-        );
-    }
-
-    changePlaylist(playlistId) {
-        if (this.isSearchMusicSelected) {
-            this.isSearchMusicSelected = false;
-        }
-
-        this.selectedPlaylist = this.playLists.find(
-            item => item.id === playlistId
-        );
-    }
-
-    browseMusic(searchMusic) {
-        this.selectedPlaylist = null;
-        this.isSearchMusicSelected = searchMusic;
+        this.eventSubscriber = this.eventManager.subscribe('playListListModification', (response) => this.loadAll());
     }
 
     private onError(error) {

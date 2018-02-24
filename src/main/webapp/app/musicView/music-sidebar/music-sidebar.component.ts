@@ -22,6 +22,7 @@ import { Principal } from '../../shared';
 export class MusicSidebarComponent implements OnInit, OnDestroy {
     @Input() playLists: PlayList[];
     @Output() getPlaylistChange = new EventEmitter<number>();
+    @Output() getIsSearchMusic = new EventEmitter<boolean>();
     selectedPlaylist = null;
 
     constructor(private jhiAlertService: JhiAlertService) {}
@@ -32,6 +33,11 @@ export class MusicSidebarComponent implements OnInit, OnDestroy {
     selectPlaylist(id) {
         this.selectedPlaylist = id;
         this.getPlaylistChange.emit(id);
+    }
+
+    browseMusic() {
+        this.selectedPlaylist = null;
+        this.getIsSearchMusic.emit(true);
     }
 
     private onError(error) {
