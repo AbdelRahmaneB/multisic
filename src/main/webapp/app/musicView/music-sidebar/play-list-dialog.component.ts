@@ -111,7 +111,7 @@ export class PlayListPopupComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
+        this.routeSub = this.route.params.subscribe(params => {
             if (params['id']) {
                 this.playListPopupService.open(
                     PlayListDialogComponent as Component,

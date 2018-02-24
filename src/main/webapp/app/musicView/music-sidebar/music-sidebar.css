@@ -1,6 +1,5 @@
 .playlists {
     display: flex;
-    justify-content: space-between;
     margin: 15px 0;
 }
 
@@ -26,4 +25,34 @@
 
 .fa-search {
     color: #533f03;
+}
+
+.playlist-action-button {
+    visibility: hidden;
+}
+
+.playlist {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 45px;
+    width: 100%;
+    padding: 5px;
+    color: #533f03;
+}
+.playlist:hover {
+    background-color: #c3c5c8;
+    cursor: pointer;
+    font-weight: 600;
+}
+.playlistSelected {
+    background-color: #c3c5c8;
+    cursor: pointer;
+    font-weight: 600;
+}
+.playlistSelected button {
+    visibility: visible;
+}
+.playlist:hover button {
+    visibility: visible;
 }

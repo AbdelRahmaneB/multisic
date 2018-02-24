@@ -16,6 +16,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
     playLists: PlayList[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    selectedPlaylist: PlayList;
 
     constructor(
         private playListService: PlayListService,
@@ -34,7 +35,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInPlayLists();
@@ -50,7 +51,13 @@ export class MusicViewComponent implements OnInit, OnDestroy {
     registerChangeInPlayLists() {
         this.eventSubscriber = this.eventManager.subscribe(
             'playListListModification',
-            (response) => this.loadAll()
+            response => this.loadAll()
+        );
+    }
+
+    changePlaylist(playlistId) {
+        this.selectedPlaylist = this.playLists.find(
+            item => item.id === playlistId
         );
     }
 

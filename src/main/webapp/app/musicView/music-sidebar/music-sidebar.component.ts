@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    Input,
+    Output,
+    EventEmitter,
+} from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
@@ -14,14 +21,17 @@ import { Principal } from '../../shared';
 })
 export class MusicSidebarComponent implements OnInit, OnDestroy {
     @Input() playLists: PlayList[];
+    @Output() getPlaylistChange = new EventEmitter<number>();
+    selectedPlaylist = null;
 
-    constructor(
-        private jhiAlertService: JhiAlertService,
-    ) {}
-    ngOnInit() {
-    }
+    constructor(private jhiAlertService: JhiAlertService) {}
+    ngOnInit() {}
 
-    ngOnDestroy() {
+    ngOnDestroy() {}
+
+    selectPlaylist(id) {
+        this.selectedPlaylist = id;
+        this.getPlaylistChange.emit(id);
     }
 
     private onError(error) {

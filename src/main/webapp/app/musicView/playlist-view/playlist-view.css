@@ -1,0 +1,23 @@
+.empty-list {
+    color: #c3c5c8;
+    font-size: 22px;
+}
+.track-list {
+    width: 100%;
+}
+th,
+td {
+    padding: 15px;
+    text-align: left;
+    max-width: 300px;
+}
+
+.track:hover {
+    background-color: #c3c5c8;
+    cursor: pointer;
+}
+
+.fa-plus {
+    padding: 5px;
+    color: #4bb543;
+}
