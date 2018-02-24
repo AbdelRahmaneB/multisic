@@ -1,3 +1,15 @@
-<p>
-  search-music-view works!
-</p>
+<h2>Look for new music</h2>
+<div class="search-container">
+  <div>
+    <i class="fa fa-search"></i>
+    <input type="text" placeholder="Search.." name="search">
+  </div>
+</div>
+<div class="search-results">
+  <h3>Napster Results</h3>
+  <div *ngFor="let result of napsterResults">{{result}}</div>
+  <h3>Deezer Results</h3>
+  <div *ngFor="let result of napsterResults">{{result}}</div>
+  <h3>Spotify Results</h3>
+  <div *ngFor="let result of napsterResults">{{result}}</div>
+</div>
