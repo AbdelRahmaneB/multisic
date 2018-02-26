@@ -1,12 +1,10 @@
 package ca.polymtl.log8430.service;
 
 import ca.polymtl.log8430.domain.Track;
-import ca.polymtl.log8430.service.impl.DeezerProviderService;
-import ca.polymtl.log8430.service.impl.NapsterProviderService;
-import ca.polymtl.log8430.service.impl.SpotifyProviderService;
+import ca.polymtl.log8430.service.musicprovider.MusicProviderService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,20 +16,20 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class MusicProviderService {
+public class MusicProviderClientService {
 
-    private final Logger log = LoggerFactory.getLogger(MusicProviderService.class);
+    private final Logger log = LoggerFactory.getLogger(MusicProviderClientService.class);
 
-    private final List<APIProviderService> providers;
+    private final List<MusicProviderService> providers;
 
-    public MusicProviderService(List<APIProviderService> providers) {
+    public MusicProviderClientService(List<MusicProviderService> providers) {
         this.providers = providers;
     }
 
     @Transactional(readOnly = true)
     public List<String> getAllMusicProviders() {
         return providers.stream()
-            .map(APIProviderService::getProviderName)
+            .map(MusicProviderService::getProviderName)
             .collect(Collectors.toList());
     }
 
