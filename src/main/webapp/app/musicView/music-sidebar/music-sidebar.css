@@ -1,30 +1,15 @@
 .playlists {
     display: flex;
-    margin: 15px 0;
 }
 
 .nav-section {
     display: flex;
     flex-direction: column;
-    margin-bottom: 25px;
-}
-
-.menu-button {
-    width: 100%;
-    height: 40px;
-    border: none;
-    background-color: transparent;
-    color: #533f03;
-    font-size: 24px;
-    border-radius: 4px;
-}
-.menu-button:hover {
-    background-color: #c3c5c8;
-    cursor: pointer;
+    margin-bottom: 50px;
 }
 
 .fa-search {
-    color: #533f03;
+    color: #26272a;
 }
 
 .playlist-action-button {
@@ -35,24 +20,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 45px;
     width: 100%;
-    padding: 5px;
-    color: #533f03;
-}
-.playlist:hover {
-    background-color: #c3c5c8;
-    cursor: pointer;
-    font-weight: 600;
-}
-.playlistSelected {
-    background-color: #c3c5c8;
-    cursor: pointer;
-    font-weight: 600;
+    font-size: 18px;
 }
 .playlistSelected button {
     visibility: visible;
 }
 .playlist:hover button {
     visibility: visible;
+}
+
+.fa-list-ul {
+    padding: 0 8px;
 }

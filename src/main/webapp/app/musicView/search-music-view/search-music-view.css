@@ -51,9 +51,12 @@ table {
 }
 th,
 td {
-    padding: 5px;
+    padding: 8px;
     text-align: left;
     max-width: 300px;
+}
+tbody tr:nth-child(odd) {
+    background-color: #dad6da;
 }
 
 .no-search-results {
@@ -61,5 +64,5 @@ td {
 }
 
 .selectedTrack {
-    background-color: #c3c5c8;
+    background-color: #fcc387;
 }

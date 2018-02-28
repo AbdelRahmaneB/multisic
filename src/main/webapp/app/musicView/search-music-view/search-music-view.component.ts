@@ -32,14 +32,23 @@ export class SearchMusicViewComponent implements OnInit {
     }
 
     search() {
-        this.availableProviders.forEach(provider => {
-            this.searchMusicService.query({ provider: provider }).subscribe(
+        this.searchMusicService
+            .query({ query: 'love', provider: 'deezer' })
+            .subscribe(
                 (res: HttpResponse<Track[]>) => {
-                    this.searchResults[provider] = res.body;
+                    console.log(res.body);
+                    this.searchResults['deezer'] = res.body;
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
-        });
+        // this.availableProviders.forEach(provider => {
+        //     this.searchMusicService.query({ provider: provider }).subscribe(
+        //         (res: HttpResponse<Track[]>) => {
+        //             this.searchResults[provider] = res.body;
+        //         },
+        //         (res: HttpErrorResponse) => this.onError(res.message)
+        //     );
+        // });
     }
 
     ngOnInit() {

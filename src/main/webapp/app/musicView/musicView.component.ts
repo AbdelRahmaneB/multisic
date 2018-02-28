@@ -27,7 +27,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     selectedPlaylist: PlayList;
-    isSearchMusicSelected: boolean;
+    isSearchMusicSelected: boolean = true;
     selectedTrack: Track;
 
     constructor(
