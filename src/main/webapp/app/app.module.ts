@@ -21,6 +21,9 @@ import { MultisicAdminModule } from './admin/admin.module';
 import { MultisicAccountModule } from './account/account.module';
 import { MultisicMusicViewModule } from './musicView/musicView.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
+
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import {
     JhiMainComponent,
@@ -41,6 +44,8 @@ import {
         MultisicAdminModule,
         MultisicAccountModule,
         MultisicMusicViewModule,
+        VgCoreModule,
+        VgControlsModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
