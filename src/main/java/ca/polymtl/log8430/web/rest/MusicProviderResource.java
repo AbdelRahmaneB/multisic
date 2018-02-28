@@ -47,7 +47,7 @@ public class MusicProviderResource {
      */
     @GetMapping("/music-providers/search")
     @Timed
-    public List<Track> search(@RequestParam(required = false) String query, @RequestParam String provider) {
+    public List<Track> search(@RequestParam String query, @RequestParam String provider) {
         return musicProviderClientService.search(query, provider);
     }
 }
