@@ -1,7 +1,8 @@
-package ca.polymtl.log8430.service.impl;
+package ca.polymtl.log8430.service.musicprovider.napster;
 
 import ca.polymtl.log8430.domain.Track;
-import ca.polymtl.log8430.service.APIProviderService;
+import ca.polymtl.log8430.service.musicprovider.MusicProviderService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,12 @@ import java.util.List;
 
 @Service
 @Transactional
-public class NapsterProviderService implements APIProviderService {
+class NapsterProviderService implements MusicProviderService {
 
     private final Logger log = LoggerFactory.getLogger(NapsterProviderService.class);
+    private static final String MUSIC_PROVIDER_NAME = "napster";
 
+    
     @Override
     public List<Track> search(String query) {
         //TODO REMOVE MOCK AND DO ACTUAL CALLS HERE
@@ -30,9 +33,9 @@ public class NapsterProviderService implements APIProviderService {
         tracks.add(track);
         return tracks;
     }
-
+    
     @Override
     public String getProviderName() {
-        return "napster";
+        return MUSIC_PROVIDER_NAME;
     }
 }

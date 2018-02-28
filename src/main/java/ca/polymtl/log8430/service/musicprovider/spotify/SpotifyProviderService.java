@@ -1,7 +1,8 @@
-package ca.polymtl.log8430.service.impl;
+package ca.polymtl.log8430.service.musicprovider.spotify;
 
 import ca.polymtl.log8430.domain.Track;
-import ca.polymtl.log8430.service.APIProviderService;
+import ca.polymtl.log8430.service.musicprovider.MusicProviderService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,10 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SpotifyProviderService implements APIProviderService {
+class SpotifyProviderService implements MusicProviderService {
 
     private final Logger log = LoggerFactory.getLogger(SpotifyProviderService.class);
+    private static final String MUSIC_PROVIDER_NAME = "spotify";
 
     @Override
     public List<Track> search(String query) {
@@ -33,6 +35,6 @@ public class SpotifyProviderService implements APIProviderService {
 
     @Override
     public String getProviderName() {
-        return "spotify";
+        return MUSIC_PROVIDER_NAME;
     }
 }

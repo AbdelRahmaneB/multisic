@@ -2,7 +2,7 @@ package ca.polymtl.log8430.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import ca.polymtl.log8430.domain.Track;
-import ca.polymtl.log8430.service.MusicProviderService;
+import ca.polymtl.log8430.service.MusicProviderClientService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +22,11 @@ public class MusicProviderResource {
 
     private final Logger log = LoggerFactory.getLogger(MusicProviderResource.class);
 
-    private final MusicProviderService musicProviderService;
+    private final MusicProviderClientService musicProviderClientService;
 
-    public MusicProviderResource(MusicProviderService musicProviderService) {
+    public MusicProviderResource(MusicProviderClientService musicProviderService) {
 
-        this.musicProviderService = musicProviderService;
+        this.musicProviderClientService = musicProviderService;
     }
 
     /**
@@ -37,7 +37,7 @@ public class MusicProviderResource {
     @GetMapping("/music-providers")
     @Timed
     public List<String> getAllMusicProviders() {
-        return musicProviderService.getAllMusicProviders();
+        return musicProviderClientService.getAllMusicProviders();
     }
 
     /**
@@ -48,6 +48,6 @@ public class MusicProviderResource {
     @GetMapping("/music-providers/search")
     @Timed
     public List<Track> search(@RequestParam(required = false) String query, @RequestParam String provider) {
-        return musicProviderService.search(query, provider);
+        return musicProviderClientService.search(query, provider);
     }
 }
