@@ -7,10 +7,7 @@ import { Account, LoginModalService, Principal } from '../shared';
 @Component({
     selector: 'jhi-home',
     templateUrl: './home.component.html',
-    styleUrls: [
-        'home.css'
-    ]
-
+    styleUrls: ['home.css'],
 })
 export class HomeComponent implements OnInit {
     account: Account;
@@ -20,19 +17,18 @@ export class HomeComponent implements OnInit {
         private principal: Principal,
         private loginModalService: LoginModalService,
         private eventManager: JhiEventManager
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.account = account;
         });
         this.registerAuthenticationSuccess();
     }
 
     registerAuthenticationSuccess() {
-        this.eventManager.subscribe('authenticationSuccess', (message) => {
-            this.principal.identity().then((account) => {
+        this.eventManager.subscribe('authenticationSuccess', message => {
+            this.principal.identity().then(account => {
                 this.account = account;
             });
         });

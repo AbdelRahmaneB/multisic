@@ -28,9 +28,8 @@ class DeezerProviderService implements MusicProviderService {
 	@Override
 	public List<Track> search(String query) {
 		Tracks deezerTracks = deezerClient.search(new Search(query));
-		List<Track> tracks = deezerTracks.getData().stream()
-				.map(deezerTrackTransformer::transform)
-				.collect(Collectors.<Track> toList());
+		List<Track> tracks = deezerTracks.getData().stream().map(deezerTrackTransformer::transform)
+				.collect(Collectors.<Track>toList());
 
 		return tracks;
 	}
