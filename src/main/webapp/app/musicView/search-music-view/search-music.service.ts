@@ -3,6 +3,11 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
 import { Track } from '../track/track.model';
 import { createRequestOption } from '../../shared';
 
@@ -15,35 +20,30 @@ export class SearchMusicService {
 
     constructor(private http: HttpClient) {}
 
-    queryProviders(req?: any): Observable<HttpResponse<String[]>> {
-        const options = createRequestOption(req);
-        return this.http.get<String[]>(this.resourceUrl, {
-            params: options,
-            observe: 'response',
-        });
-    }
-
-    query(req?: any): Observable<HttpResponse<Track[]>> {
+    queryProviders(req?: any): Promise<HttpResponse<string[]>> {
         const options = createRequestOption(req);
         return this.http
-            .get<Track[]>(this.searchResourceUrl, {
+            .get<string[]>(this.resourceUrl, {
                 params: options,
                 observe: 'response',
             })
-            .map((res: HttpResponse<Track[]>) =>
-                this.convertArrayResponse(res)
-            );
+            .toPromise();
     }
 
-    private convertArrayResponse(
-        res: HttpResponse<Track[]>
-    ): HttpResponse<Track[]> {
+    query(req?: any): Observable<Track[]> {
+        const options = createRequestOption(req);
+        return this.http.get<Track[]>(this.searchResourceUrl, {
+            params: options,
+        });
+    }
+
+    private convertArrayResponse(res: HttpResponse<Track[]>): Track[] {
         const jsonResponse: Track[] = res.body;
         const body: Track[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({ body });
+        return body;
     }
 
     /**

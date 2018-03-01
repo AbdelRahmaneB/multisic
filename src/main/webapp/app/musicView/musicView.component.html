@@ -4,7 +4,7 @@
     </div>
     <div class="col-md-8 col-sm-7 playlistView">
         <div [ngClass]="{hide: !isSearchMusicSelected}">
-            <jhi-search-music-view (newTrack)=changeTrack($event)></jhi-search-music-view>
+            <jhi-search-music-view (newTrack)=changeTrack($event) (playTrackEvent)=playTrack($event)></jhi-search-music-view>
         </div>
         <div [ngClass]="{hide: !selectedPlaylist}">
             <jhi-playlist-view [playlist]="selectedPlaylist" (newTrack)=changeTrack($event)></jhi-playlist-view>

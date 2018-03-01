@@ -7,6 +7,7 @@ import { PlayListService } from './music-sidebar/play-list.service';
 import { PlayListPopupService } from './music-sidebar/play-list-popup.service';
 import { SearchMusicService } from './search-music-view/search-music.service';
 import { MusicSidebarComponent } from './music-sidebar/music-sidebar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MultisicMusicSidebarModule } from './music-sidebar/music-sidebar.module';
 import { MultisicTrackModule } from './track/track.module';
@@ -14,7 +15,6 @@ import { PlaylistViewComponent } from './playlist-view/playlist-view.component';
 import { SearchMusicViewComponent } from './search-music-view/search-music-view.component';
 import { AudioPlayerComponent } from './audio-player/audio-player.component';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
-
 const MUSIC_STATES = [...musicViewRoutes];
 
 @NgModule({
@@ -23,6 +23,8 @@ const MUSIC_STATES = [...musicViewRoutes];
         MultisicMusicSidebarModule,
         MultisicTrackModule,
         RouterModule.forChild(MUSIC_STATES),
+        FormsModule,
+        ReactiveFormsModule,
     ],
     declarations: [
         MusicViewComponent,

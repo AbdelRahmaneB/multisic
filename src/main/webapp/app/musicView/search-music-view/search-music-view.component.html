@@ -1,22 +1,36 @@
 <h2>Look for new music</h2>
 <div class="search-container">
-  <div>
-    <i class="fa fa-search"></i>
-    <input type="text" placeholder="Search.." name="search">
-  </div>
+  <form class="form-inline">
+    <div class="form-group">
+      <i class="fa fa-search"></i>
+      <input type="text" placeholder="Search.." [formControl]="searchField" name="search">
+    </div>
+  </form>
 </div>
 <div class="search-results">
   <div *ngFor="let provider of availableProviders">
     <h3 class="search-result-title">{{provider}}</h3>
-    <div *ngIf="searchResults.hasOwnProperty(provider)" class="sub-search-results">
+    <div *ngIf="searchResults[provider].length > 0; else load" class="sub-search-results">
       <table>
         <tr>
+          <th></th>
           <th>Name</th>
           <th>Artist</th>
           <th>Album</th>
           <th></th>
         </tr>
-        <tr *ngFor="let result of searchResults[provider]" [ngClass]="{selectedTrack: result.id === playingTrackId}" (click)="playTrack(result)">
+
+        <tr *ngFor="let result of searchResults[provider]" [ngClass]="{selectedTrack: result.id === playingTrackId}" class="table-row"
+          (click)="changeTrack(result)">
+          <td>
+            <div class="container" (click)="playTrack($event, result)">
+              <img src="{{result.imagesurl}}" class="album-img">
+              <div class="overlay">
+                <span class="icon fa fa-play-circle fa-2x"></span>
+              </div>
+            </div>
+            </img>
+          </td>
           <td>{{result.name}}</td>
           <td>{{result.artist}}</td>
           <td>{{result.album}}</td>
@@ -26,7 +40,7 @@
         </tr>
       </table>
     </div>
-    <div *ngIf="!searchResults.hasOwnProperty(provider)" class="sub-search-results">
+    <div *ngIf="searchResults[provider].length === 0" class="sub-search-results">
       <span class="no-search-results">No results found</span>
     </div>
   </div>

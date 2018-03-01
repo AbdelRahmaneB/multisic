@@ -6,6 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { PlayList } from './music-sidebar/play-list.model';
 import { Track } from './track/track.model';
 import { PlayListService } from './music-sidebar/play-list.service';
+import { SearchMusicService } from './search-music-view/search-music.service';
 import { Principal } from '../shared';
 
 import { AudioPlayerComponent } from './audio-player/audio-player.component';
@@ -29,12 +30,14 @@ export class MusicViewComponent implements OnInit, OnDestroy {
     selectedPlaylist: PlayList;
     isSearchMusicSelected: boolean = true;
     selectedTrack: Track;
+    availableProviders: string[];
 
     constructor(
         private playListService: PlayListService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private searchMusicService: SearchMusicService
     ) {}
 
     loadAll() {
@@ -45,6 +48,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
+
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then(account => {
@@ -78,18 +82,22 @@ export class MusicViewComponent implements OnInit, OnDestroy {
     }
 
     changeTrack(track) {
+        this.selectTrack(track);
+        this.audioPlayer.selectTrack(track);
+    }
+
+    playTrack(track) {
+        this.selectTrack(track);
+        this.audioPlayer.playTrack(track);
+    }
+
+    selectTrack(track) {
         if (this.isSearchMusicSelected) {
             this.playlistView.selectedTrackId = null;
         } else {
             this.searchMusicView.playingTrackId = null;
         }
         this.selectedTrack = track;
-        this.audioPlayer.selectTrack(track);
-    }
-
-    playTrack(track) {
-        this.selectedTrack = track;
-        this.audioPlayer.playTrack(track);
     }
 
     browseMusic(searchMusic) {

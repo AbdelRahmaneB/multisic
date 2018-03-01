@@ -18,8 +18,9 @@ export class AudioPlayerComponent implements OnInit {
 
     playTrack(track: Track) {
         this.selectTrack(track);
-        this.player.nativeElement.load();
-        this.player.nativeElement.play();
+        let player = this.player.nativeElement;
+        player.load();
+        player.play();
     }
 
     playNextSong() {
