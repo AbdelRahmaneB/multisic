@@ -10,13 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.Reader;
+
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 
 @Service
 @Transactional
@@ -26,28 +30,28 @@ class NapsterProviderService implements MusicProviderService {
     private final Logger log = LoggerFactory.getLogger(NapsterProviderService.class);
     private static final String MUSIC_PROVIDER_NAME = "napster";
 
-    private final String baseUrl = "https://api.napster.com/v2.2/search?query=weezer&apikey=ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm";
+    private final String BASE_URL = "https://api.napster.com/v2.2/search";
+    private final String LIMIT = "10";
 
     @Override
     public List<Track> search(String query) {
         //TODO REMOVE MOCK AND DO ACTUAL CALLS HERE
         List<Track> tracks = new ArrayList<>();
-        Track track = new Track();
+        //Track track = new Track();
 
         try {
-            URL obj = new URL(baseUrl);
+            // source: https://www.mkyong.com/java/how-to-send-http-request-getpost-in-java/
+
+            String url = BASE_URL + "?query=" + query + "&type=track" + "&per_type_limit=" + LIMIT + "&apikey="
+                    + API_KEY;
+            URL obj = new URL(url);
+
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-            // optional default is GET
             con.setRequestMethod("GET");
-
-            //add request header
-            // con.setRequestProperty("User-Agent", USER_AGENT);
-
             int responseCode = con.getResponseCode();
-            System.out.println("\nSending 'GET' request to URL : " + baseUrl);
+            System.out.println("\nSending 'GET' request to URL : " + url);
             System.out.println("Response Code : " + responseCode);
-            System.out.println("===========================");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
@@ -58,21 +62,24 @@ class NapsterProviderService implements MusicProviderService {
             }
             in.close();
 
-            //print result
-            System.out.println(response.toString());
-            System.out.println("===========================");
+            JSONObject json = (JSONObject) new JSONParser().parse(response.toString());
+            JSONObject searchResults = (JSONObject) new JSONParser().parse(json.get("search").toString());
+            JSONObject dataResults = (JSONObject) new JSONParser().parse(searchResults.get("data").toString());
+            JSONArray tracksJson = (JSONArray) dataResults.get("tracks");
+
+            for(int i=0; i<tracksJson.size(); i++){
+                JSONObject track = (JSONObject) new JSONParser().parse(tracksJson.get(i).toString());
+                //print result
+                System.out.println("==============" + i + "=============");
+                System.out.println(track.get("name"));
+                System.out.println("============================");
+            }
+
+
         } catch (Exception e) {
-            System.out.print(e);
+            System.out.println("Error: " + e.getCause().getMessage());
         }
 
-        // track.setId(1L);
-        // track.setName("All I Want Napster");
-        // track.setArtist("Tania Bowra");
-        // track.setImagesurl("https://i.scdn.co/image/985cc10acdbbedb6a16d7c74f9e23553e2b28dbc");
-        // track.setAlbum("Place In The Sun");
-        // track.setPreviewurl(
-        //         "https://p.scdn.co/mp3-preview/12b8cee72118f995f5494e1b34251e4ac997445e?cid=22e646a7995548b99c0288315abf7fa5");
-        // tracks.add(track);
         return tracks;
     }
 
