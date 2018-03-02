@@ -8,6 +8,7 @@ public class DeezerTrackTransformer implements TrackTransformer<com.zeloon.deeze
 	@Override
 	public Track transform(com.zeloon.deezer.domain.Track fromTrack) {
 		Track toTrack = new Track();
+        toTrack.setId(fromTrack.getId());
 		toTrack.setName(fromTrack.getTitle());
 		toTrack.setArtist(fromTrack.getArtist().getName());
 		toTrack.setAlbum(fromTrack.getAlbum().getTitle());
@@ -15,5 +16,4 @@ public class DeezerTrackTransformer implements TrackTransformer<com.zeloon.deeze
 		toTrack.setImagesurl(fromTrack.getAlbum().getCover());
 		return toTrack;
 	}
-
 }
