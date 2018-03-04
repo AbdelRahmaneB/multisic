@@ -22,7 +22,7 @@
         <tr *ngFor="let result of searchResults[provider]" [ngClass]="{selectedTrack: result.id === (selectedTrackId || playingTrackId)}"
           class="table-row" (click)="changeTrack(result)">
           <td>
-            <div class="container" (click)="playTrack($event, result)">
+            <div class="album-img-container" (click)="playTrack($event, result)">
               <img src="{{result.imagesurl}}" class="album-img">
               <div class="overlay">
                 <span *ngIf="playingTrackId !== result.id; else pauseBlock" class="icon fa fa-play-circle fa-2x"></span>
@@ -30,8 +30,8 @@
                   <span class="icon fa fa-pause-circle fa-2x"></span>
                 </ng-template>
               </div>
+              </img>
             </div>
-            </img>
           </td>
           <td>{{result.name}}</td>
           <td>{{result.artist}}</td>

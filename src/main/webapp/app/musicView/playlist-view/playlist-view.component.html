@@ -1,14 +1,27 @@
+<h2>{{playlist?.name}}</h2>
 <div class="playlist">
-  <h2>{{playlist?.name}}</h2>
   <div *ngIf="playlist?.tracks && playlist?.tracks.length > 0">
     <table class="track-list">
       <tr>
+        <th></th>
         <th>Name</th>
         <th>Artist</th>
         <th>Album</th>
         <th></th>
       </tr>
       <tr *ngFor="let track of playlist?.tracks" [ngClass]="{selectedTrack: track?.id === selectedTrackId}" (click)="changeSong(track)">
+        <td>
+          <div class="album-img-container">
+            <img src="{{track.imagesurl}}" class="album-img">
+            <div class="overlay">
+              <span *ngIf="playingTrackId !== track.id; else pauseBlock" class="icon fa fa-play-circle fa-2x"></span>
+              <ng-template #pauseBlock>
+                <span class="icon fa fa-pause-circle fa-2x"></span>
+              </ng-template>
+            </div>
+            </img>
+          </div>
+        </td>
         <td>{{track?.name ? track.name : 'Unknown'}}</td>
         <td>{{track?.artist ? track.artist : 'Unknown'}}</td>
         <td>{{track?.album ? track.album: 'Unknown'}}</td>
