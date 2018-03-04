@@ -165,7 +165,6 @@ export class SearchMusicViewComponent implements OnInit {
         if (!playlist.tracks.find(t => t.id === track.id)) {
             //Create own unique id
             delete track.id;
-            console.log(track);
             this.subscribeToTrackResponse(
                 this.trackService.create(track),
                 playlist
@@ -185,7 +184,6 @@ export class SearchMusicViewComponent implements OnInit {
     onSaveTrackSuccess(track: Track, playlist: PlayList) {
         //Update playlist
         playlist.tracks.push(track);
-        console.log(playlist);
         this.subscribeToPlaylistResponse(this.playListService.update(playlist));
     }
 

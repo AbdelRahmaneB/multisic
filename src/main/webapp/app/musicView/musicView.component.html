@@ -12,9 +12,8 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12 col-sm-12">
-        <jhi-audio-player [playingTrack]="selectedTrack" [selectedPlaylist]="selectedPlaylist" (playNextSongEvent)="stopTrack()"
-            (playTrackEvent)="playTrack($event)" (pauseTrackEvent)=pauseTrack($event)></jhi-audio-player>
-    </div>
+
+<div class="audio-container">
+    <jhi-audio-player [playingTrack]="selectedTrack" [selectedPlaylist]="selectedPlaylist" (playNextSongEvent)="stopTrack()"
+        (playTrackEvent)="playTrack($event)" (pauseTrackEvent)=pauseTrack($event)></jhi-audio-player>
 </div>

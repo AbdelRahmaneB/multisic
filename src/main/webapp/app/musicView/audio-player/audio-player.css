@@ -1,7 +1,30 @@
-.audio-player {
+audio {
     width: 100%;
 }
 
-audio {
-    width: 100%;
+.audio-player {
+    min-height: 25px;
+    margin-top: 8px;
+}
+
+.track-info {
+    display: flex;
+    max-width: 400px;
+    margin: 5px 0;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pad {
+    padding: 0 5px;
+}
+
+img {
+    width: 30px;
+    height: 30px;
+}
+
+.divider {
+    border-left: 2px solid #fff;
+    height: 30px;
 }
