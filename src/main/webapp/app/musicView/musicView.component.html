@@ -4,7 +4,8 @@
     </div>
     <div class="col-md-8 col-sm-7 playlistView">
         <div [ngClass]="{hide: !isSearchMusicSelected}">
-            <jhi-search-music-view (newTrack)=changeTrack($event) (playTrackEvent)=playTrack($event)></jhi-search-music-view>
+            <jhi-search-music-view (newTrack)=changeTrack($event) (playNewTrackEvent)=playNewTrack($event) (playTrackEvent)="playTrack($event)"
+                (pauseTrackEvent)=pauseTrack($event)></jhi-search-music-view>
         </div>
         <div [ngClass]="{hide: !selectedPlaylist}">
             <jhi-playlist-view [playlist]="selectedPlaylist" (newTrack)=changeTrack($event)></jhi-playlist-view>
@@ -13,6 +14,7 @@
 </div>
 <div class="row">
     <div class="col-md-12 col-sm-12">
-        <jhi-audio-player [playingTrack]="selectedTrack" [selectedPlaylist]="selectedPlaylist"></jhi-audio-player>
+        <jhi-audio-player [playingTrack]="selectedTrack" [selectedPlaylist]="selectedPlaylist" (playNextSongEvent)="stopTrack()"
+            (playTrackEvent)="playTrack($event)" (pauseTrackEvent)=pauseTrack($event)></jhi-audio-player>
     </div>
 </div>

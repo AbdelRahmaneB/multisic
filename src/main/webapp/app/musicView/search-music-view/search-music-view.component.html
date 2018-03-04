@@ -10,7 +10,7 @@
 <div class="search-results">
   <div *ngFor="let provider of availableProviders">
     <h3 class="search-result-title">{{provider}}</h3>
-    <div *ngIf="searchResults[provider].length > 0; else load" class="sub-search-results">
+    <div *ngIf="searchResults[provider]?.length > 0; else load" class="sub-search-results">
       <table>
         <tr>
           <th></th>
@@ -19,14 +19,16 @@
           <th>Album</th>
           <th></th>
         </tr>
-
-        <tr *ngFor="let result of searchResults[provider]" [ngClass]="{selectedTrack: result.id === playingTrackId}" class="table-row"
-          (click)="changeTrack(result)">
+        <tr *ngFor="let result of searchResults[provider]" [ngClass]="{selectedTrack: result.id === (selectedTrackId || playingTrackId)}"
+          class="table-row" (click)="changeTrack(result)">
           <td>
             <div class="container" (click)="playTrack($event, result)">
               <img src="{{result.imagesurl}}" class="album-img">
               <div class="overlay">
-                <span class="icon fa fa-play-circle fa-2x"></span>
+                <span *ngIf="playingTrackId !== result.id; else pauseBlock" class="icon fa fa-play-circle fa-2x"></span>
+                <ng-template #pauseBlock>
+                  <span class="icon fa fa-pause-circle fa-2x"></span>
+                </ng-template>
               </div>
             </div>
             </img>
@@ -35,12 +37,17 @@
           <td>{{result.artist}}</td>
           <td>{{result.album}}</td>
           <td>
-            <span class="fa fa-plus fa-lg"></span>
+            <div class="add-track-container">
+              <span class="fa fa-plus fa-lg" (click)="openDropdown($event, result)"></span>
+              <ul *ngIf="result.id === selectedTrackId && showPlaylistDropdown">
+                <li *ngFor="let playlist of playlists" (click)="addToPlaylist(playlist, result)">{{playlist.name}}</li>
+              </ul>
+            </div>
           </td>
         </tr>
       </table>
     </div>
-    <div *ngIf="searchResults[provider].length === 0" class="sub-search-results">
+    <div *ngIf="searchResults[provider]?.length === 0" class="sub-search-results">
       <span class="no-search-results">No results found</span>
     </div>
   </div>

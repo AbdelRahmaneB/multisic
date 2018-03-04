@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    Output,
+    ViewChild,
+    EventEmitter,
+} from '@angular/core';
 import { PlayList } from '../music-sidebar/play-list.model';
 import { Track } from '../track/track.model';
 // ex : http://static.videogular.com/assets/audios/videogular.mp3
@@ -11,39 +18,48 @@ export class AudioPlayerComponent implements OnInit {
     @ViewChild('audio') player: any;
     @Input() playingTrack: Track;
     @Input() selectedPlaylist: PlayList;
+    @Output() playNextSongEvent = new EventEmitter();
+    @Output() playTrackEvent = new EventEmitter<any>();
+    @Output() pauseTrackEvent = new EventEmitter<any>();
 
     constructor() {}
 
     ngOnInit() {}
 
-    playTrack(track: Track) {
+    playNewTrack(track: Track) {
         this.selectTrack(track);
-        let player = this.player.nativeElement;
-        player.load();
-        player.play();
+        this.player.nativeElement.load();
+        this.play();
     }
 
     playNextSong() {
         //TODO play next song
-        console.log('PLAY NEXT SONG');
         if (this.selectedPlaylist) {
             //TODO play next song in playlist
         } else {
-            this.player.nativeElement.load();
+            this.player.nativeElement.load(); //reset song
+            this.playNextSongEvent.emit();
         }
     }
 
     selectTrack(track) {
+        this.playingTrack = track;
         this.player.nativeElement.src = track.previewurl;
     }
 
     play() {
-        //TODO
-        console.log('PLAY');
+        this.player.nativeElement.play();
     }
 
     pause() {
-        //TODO
-        console.log('PAUSE');
+        this.player.nativeElement.pause();
+    }
+
+    onPlay() {
+        this.playTrackEvent.emit(this.playingTrack);
+    }
+
+    onPause() {
+        this.pauseTrackEvent.emit(this.playingTrack);
     }
 }

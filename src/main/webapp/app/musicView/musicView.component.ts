@@ -86,9 +86,23 @@ export class MusicViewComponent implements OnInit, OnDestroy {
         this.audioPlayer.selectTrack(track);
     }
 
-    playTrack(track) {
+    playNewTrack(track) {
         this.selectTrack(track);
-        this.audioPlayer.playTrack(track);
+        this.audioPlayer.playNewTrack(track);
+    }
+
+    playTrack(track) {
+        this.searchMusicView.playingTrackId = track.id;
+        this.audioPlayer.play();
+    }
+
+    pauseTrack(track) {
+        this.searchMusicView.playingTrackId = null;
+        this.audioPlayer.pause();
+    }
+
+    stopTrack() {
+        this.searchMusicView.stopTrack();
     }
 
     selectTrack(track) {
@@ -96,6 +110,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
             this.playlistView.selectedTrackId = null;
         } else {
             this.searchMusicView.playingTrackId = null;
+            this.searchMusicView.selectedTrackId = null;
         }
         this.selectedTrack = track;
     }
