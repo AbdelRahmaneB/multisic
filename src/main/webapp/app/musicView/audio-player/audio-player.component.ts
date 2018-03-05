@@ -20,8 +20,8 @@ import { MusicViewService } from '../musicView.service';
     styleUrls: ['audio-player.css'],
 })
 export class AudioPlayerComponent implements OnInit {
-    private subscribers: any = {};
-    private audioPlayerTrack: Track;
+    subscribers: any = {};
+    audioPlayerTrack: Track;
 
     @ViewChild('audio') player: any;
     @Input() selectedPlaylist: PlayList;
