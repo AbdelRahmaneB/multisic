@@ -11,12 +11,14 @@ export class MusicViewService {
     private selectedTrackSubject: Subject<Track>;
     private playingTrackIdSubject: Subject<number>;
     private playNewTrackSubject: Subject<Track>;
+    private removeTrackSubject: Subject<any>;
 
     constructor() {
         this.updateTrackSubject = new Subject<Track>();
         this.selectedTrackSubject = new Subject<Track>();
         this.playingTrackIdSubject = new Subject<number>();
         this.playNewTrackSubject = new Subject<Track>();
+        this.removeTrackSubject = new Subject<any>();
     }
 
     playNewTrack(track) {
@@ -35,6 +37,10 @@ export class MusicViewService {
         this.selectedTrackSubject.next(track);
     }
 
+    removeTrack() {
+        this.removeTrackSubject.next();
+    }
+
     getSelectTrackEvent(): Observable<Track> {
         return this.selectedTrackSubject.asObservable();
     }
@@ -45,5 +51,9 @@ export class MusicViewService {
 
     getPlayingTrackIdEvent(): Observable<number> {
         return this.playingTrackIdSubject.asObservable();
+    }
+
+    getRemoveTrackEvent(): Observable<any> {
+        return this.removeTrackSubject.asObservable();
     }
 }

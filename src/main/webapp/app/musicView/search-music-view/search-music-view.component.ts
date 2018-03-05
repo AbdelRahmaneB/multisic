@@ -31,7 +31,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
     templateUrl: './search-music-view.component.html',
     styleUrls: ['search-music-view.css'],
 })
-export class SearchMusicViewComponent implements OnInit {
+export class SearchMusicViewComponent implements OnInit, OnDestroy {
     @Output() newTrack = new EventEmitter<Track>();
 
     playingTrackId: number = null;
@@ -41,10 +41,10 @@ export class SearchMusicViewComponent implements OnInit {
     searchResults: any = {};
     currentAccount: any;
     searchField: FormControl;
-    loading: boolean = false;
+    loading = false;
     availableProviders: string[];
     subscribers: any = {};
-    showPlaylistDropdown: boolean = false;
+    showPlaylistDropdown = false;
     elementRef;
 
     constructor(
@@ -60,7 +60,7 @@ export class SearchMusicViewComponent implements OnInit {
 
         this.subscribers.playPauseTrack = musicViewService
             .getPlayingTrackIdEvent()
-            .subscribe(id => {
+            .subscribe((id) => {
                 this.playingTrackId = id;
             });
     }
@@ -75,24 +75,22 @@ export class SearchMusicViewComponent implements OnInit {
             .debounceTime(400)
             .distinctUntilChanged()
             .do(() => (this.loading = true))
-            .map(term => {
+            .map((term) => {
                 if (term) {
-                    this.availableProviders.map(provider => {
+                    this.availableProviders.map((provider) => {
                         this.searchMusicService
                             .query({
                                 query: term,
-                                provider: provider,
+                                provider,
                             })
                             .do(() => (this.loading = false))
-                            .subscribe(results => {
-                                console.log(provider);
-                                console.log(results);
+                            .subscribe((results) => {
                                 this.searchResults[provider] = results;
                                 this.loading = false;
                             });
                     });
                 } else {
-                    this.availableProviders.map(provider => {
+                    this.availableProviders.map((provider) => {
                         this.searchResults[provider] = [];
                     });
                 }
@@ -112,7 +110,7 @@ export class SearchMusicViewComponent implements OnInit {
     }
 
     loadAllProviders() {
-        this.searchMusicService.queryProviders().then(res => {
+        this.searchMusicService.queryProviders().then((res) => {
             this.availableProviders = res.body;
             this.initSearch();
         });
@@ -121,7 +119,6 @@ export class SearchMusicViewComponent implements OnInit {
     loadAllPlaylists() {
         this.playListService.query().subscribe(
             (res: HttpResponse<PlayList[]>) => {
-                console.log(res.body);
                 this.playlists = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
@@ -129,7 +126,7 @@ export class SearchMusicViewComponent implements OnInit {
     }
 
     initSearch() {
-        this.availableProviders.forEach(provider => {
+        this.availableProviders.forEach((provider) => {
             this.searchResults[provider] = [];
         });
     }
@@ -137,12 +134,12 @@ export class SearchMusicViewComponent implements OnInit {
     registerChangeInPlayLists() {
         this.subscribers.eventManager = this.eventManager.subscribe(
             'playListListModification',
-            response => this.loadAllPlaylists()
+            (response) => this.loadAllPlaylists()
         );
     }
 
     changeTrack(track) {
-        //Verify if already selected
+        // Verify if already selected
         if (this.selectedTrackId !== track.id) {
             this.selectedTrackId = track.id;
             this.playingTrackId = null;
@@ -176,9 +173,9 @@ export class SearchMusicViewComponent implements OnInit {
     addToPlaylist(e, playlist, track) {
         this.showPlaylistDropdown = false;
 
-        if (!playlist.tracks.find(t => t.id === track.id)) {
-            //Create own unique id
-            let trackWithoutId = Object.assign({}, track);
+        if (!playlist.tracks.find((t) => t.id === track.id)) {
+            // Create own unique id
+            const trackWithoutId = Object.assign({}, track);
             delete trackWithoutId.id;
             this.subscribeToTrackResponse(
                 this.trackService.create(trackWithoutId),
@@ -198,7 +195,7 @@ export class SearchMusicViewComponent implements OnInit {
     }
 
     onSaveTrackSuccess(track: Track, playlist: PlayList) {
-        //Update playlist
+        // Update playlist
         playlist.tracks.push(track);
         this.subscribeToPlaylistResponse(this.playListService.update(playlist));
     }

@@ -19,12 +19,13 @@ import { MusicViewService } from '../musicView.service';
     templateUrl: './audio-player.component.html',
     styleUrls: ['audio-player.css'],
 })
-export class AudioPlayerComponent implements OnInit {
+export class AudioPlayerComponent implements OnInit, OnDestroy {
     subscribers: any = {};
     audioPlayerTrack: Track;
 
     @ViewChild('audio') player: any;
     @Input() selectedPlaylist: PlayList;
+    @Input() isPlaylistPlaying: boolean;
     @Output() playNextSongEvent = new EventEmitter();
     @Output() playTrackEvent = new EventEmitter<any>();
     @Output() pauseTrackEvent = new EventEmitter<any>();
@@ -32,25 +33,31 @@ export class AudioPlayerComponent implements OnInit {
     constructor(private musicViewService: MusicViewService) {
         this.subscribers.selectTrack = musicViewService
             .getSelectTrackEvent()
-            .subscribe(track => {
+            .subscribe((track) => {
                 this.selectTrack(track);
             });
 
         this.subscribers.playNewTrack = musicViewService
             .getPlayNewTrackTrackEvent()
-            .subscribe(track => {
+            .subscribe((track) => {
                 this.selectTrack(track);
                 this.playNewTrack(track);
             });
 
         this.subscribers.playPauseTrack = musicViewService
             .getPlayingTrackIdEvent()
-            .subscribe(id => {
+            .subscribe((id) => {
                 if (id) {
                     this.play();
                 } else {
                     this.pause();
                 }
+            });
+
+        this.subscribers.removeTrack = musicViewService
+            .getRemoveTrackEvent()
+            .subscribe(() => {
+                this.removeTrack();
             });
     }
 
@@ -68,9 +75,9 @@ export class AudioPlayerComponent implements OnInit {
     }
 
     playNextSong() {
-        if (this.selectedPlaylist) {
+        if (this.selectedPlaylist && this.isPlaylistPlaying) {
             const currentIndex = this.selectedPlaylist.tracks.findIndex(
-                track => track.id === this.audioPlayerTrack.id
+                (track) => track.id === this.audioPlayerTrack.id
             );
             const nextIndex =
                 (currentIndex + 1) % this.selectedPlaylist.tracks.length;
@@ -81,8 +88,7 @@ export class AudioPlayerComponent implements OnInit {
 
             this.player.nativeElement.play();
         } else {
-            this.player.nativeElement.load(); //reset song
-            //this.playNextSongEvent.emit();
+            this.player.nativeElement.load(); // reset song
         }
     }
 
@@ -100,14 +106,18 @@ export class AudioPlayerComponent implements OnInit {
     }
 
     onPlay() {
-        //this.playTrackEvent.emit(this.playingTrack);
         this.musicViewService.playTrack(this.audioPlayerTrack.id);
         this.play();
     }
 
     onPause() {
-        //this.pauseTrackEvent.emit(this.playingTrack);
         this.musicViewService.pauseTrack();
         this.pause();
+    }
+
+    removeTrack() {
+        this.player.nativeElement.pause();
+        this.player.nativeElement.src = '';
+        this.audioPlayerTrack = null;
     }
 }

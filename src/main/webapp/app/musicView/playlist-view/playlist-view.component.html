@@ -26,7 +26,7 @@
         <td>{{track?.artist ? track.artist : 'Unknown'}}</td>
         <td>{{track?.album ? track.album: 'Unknown'}}</td>
         <td>
-          <span class="fa fa-trash fa-lg"></span>
+          <span class="fa fa-trash fa-lg" (click)="removeFromPlaylist($event, track)"></span>
         </td>
       </tr>
     </table>
