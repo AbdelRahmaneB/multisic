@@ -68,12 +68,21 @@ export class AudioPlayerComponent implements OnInit {
     }
 
     playNextSong() {
-        //TODO play next song
         if (this.selectedPlaylist) {
-            //TODO play next song in playlist
+            const currentIndex = this.selectedPlaylist.tracks.findIndex(
+                track => track.id === this.audioPlayerTrack.id
+            );
+            const nextIndex =
+                (currentIndex + 1) % this.selectedPlaylist.tracks.length;
+            const nextTrack = this.selectedPlaylist.tracks[nextIndex];
+            this.player.nativeElement.src = nextTrack.previewurl;
+
+            this.musicViewService.playNewTrack(nextTrack);
+
+            this.player.nativeElement.play();
         } else {
             this.player.nativeElement.load(); //reset song
-            this.playNextSongEvent.emit();
+            //this.playNextSongEvent.emit();
         }
     }
 

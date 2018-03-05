@@ -28,6 +28,7 @@ export class PlaylistViewComponent implements OnInit {
         this.subscribers.playPauseTrack = musicViewService
             .getPlayingTrackIdEvent()
             .subscribe(id => {
+                this.selectedTrackId = id;
                 this.playingTrackId = id;
             });
     }
