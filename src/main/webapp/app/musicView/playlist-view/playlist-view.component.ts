@@ -20,6 +20,7 @@ import { Track } from '../track/track.model';
 export class PlaylistViewComponent implements OnInit, OnDestroy {
     @Input() playlist: PlayList;
     @Output() newTrack = new EventEmitter<Track>();
+    @Output() getIsSearchMusic = new EventEmitter<boolean>();
 
     subscribers: any = {};
     selectedTrackId: number = null;
@@ -83,5 +84,9 @@ export class PlaylistViewComponent implements OnInit, OnDestroy {
         // TODO fix foreign key constraint
         // this.playListService.update(this.playlist);
         e.stopPropagation();
+    }
+
+    browseMusic() {
+        this.getIsSearchMusic.emit(true);
     }
 }

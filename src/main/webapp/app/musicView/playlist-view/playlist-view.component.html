@@ -1,4 +1,14 @@
-<h2>{{playlist?.name}}</h2>
+<div class="title">
+  <h2>{{playlist?.name}}</h2>
+  <div>
+    <button class="btn btn-custom float-right" (click)="browseMusic()">
+      <span class="fa fa-plus"></span>
+      <span>
+        Add Music
+      </span>
+    </button>
+  </div>
+</div>
 <div class="scroll-list">
   <div *ngIf="playlist?.tracks && playlist?.tracks.length > 0">
     <table class="track-list">

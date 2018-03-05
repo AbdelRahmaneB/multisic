@@ -10,6 +10,7 @@ import { Principal } from '../shared';
 
 import { PlaylistViewComponent } from './playlist-view/playlist-view.component';
 import { SearchMusicViewComponent } from './search-music-view/search-music-view.component';
+import { MusicSidebarComponent } from './music-sidebar/music-sidebar.component';
 
 @Component({
     selector: 'jhi-music-view',
@@ -18,6 +19,7 @@ import { SearchMusicViewComponent } from './search-music-view/search-music-view.
 })
 export class MusicViewComponent implements OnInit, OnDestroy {
     @ViewChild(PlaylistViewComponent) playlistView: PlaylistViewComponent;
+    @ViewChild(MusicSidebarComponent) musicSidebarView: MusicSidebarComponent;
     @ViewChild(SearchMusicViewComponent)
     searchMusicView: SearchMusicViewComponent;
 
@@ -86,6 +88,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
 
     browseMusic(searchMusic) {
         this.selectedPlaylist = null;
+        this.musicSidebarView.selectedPlaylist = null;
         this.isSearchMusicSelected = searchMusic;
     }
 

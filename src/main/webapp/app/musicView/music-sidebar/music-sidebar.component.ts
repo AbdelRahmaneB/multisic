@@ -36,7 +36,6 @@ export class MusicSidebarComponent implements OnInit, OnDestroy {
     }
 
     browseMusic() {
-        this.selectedPlaylist = null;
         this.getIsSearchMusic.emit(true);
     }
 
