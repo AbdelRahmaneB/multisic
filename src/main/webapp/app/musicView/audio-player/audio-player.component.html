@@ -1,6 +1,9 @@
 <div class="audio-player">
   <div *ngIf="audioPlayerTrack" class="track-info">
-    <img src="{{audioPlayerTrack.imagesurl}}"></img>
+    <img src="{{audioPlayerTrack.imagesurl}}" class="album-img"></img>
+    <div class="pad">
+      <span class="fa fa-backward" (click)="previousTrack()"></span>
+    </div>
     <div class="pad">
       <span class="revert-text">{{audioPlayerTrack.name.substring(0,12)}}{{audioPlayerTrack.name.length >= 12 ? '...' : ''}}</span>
     </div>
@@ -11,6 +14,9 @@
     <div class="divider"></div>
     <div class="pad">
       <span class="revert-text">{{audioPlayerTrack.album.substring(0,12)}}{{audioPlayerTrack.album.length >= 12 ? '...' : ''}}</span>
+    </div>
+    <div class="pad">
+      <span class="fa fa-forward" (click)="nextTrack()"></span>
     </div>
   </div>
   <audio #audio id="singleAudio" preload="auto" controls on-ended="playNextSong()" on-play="onPlay()" on-pause="onPause()">

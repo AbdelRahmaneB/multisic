@@ -26,7 +26,6 @@ export class MusicViewComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
     selectedPlaylist: PlayList;
     isSearchMusicSelected = true;
-    isPlaylistPlaying = false;
 
     constructor(
         private playListService: PlayListService,
@@ -72,7 +71,6 @@ export class MusicViewComponent implements OnInit, OnDestroy {
         this.selectedPlaylist = this.playLists.find(
             (item) => item.id === playlistId
         );
-        this.isPlaylistPlaying = this.playlistView.playingTrackId ? true : false;
     }
 
     selectTrack(track) {

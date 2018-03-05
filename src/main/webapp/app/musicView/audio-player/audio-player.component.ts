@@ -25,10 +25,10 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
 
     @ViewChild('audio') player: any;
     @Input() selectedPlaylist: PlayList;
-    @Input() isPlaylistPlaying: boolean;
     @Output() playNextSongEvent = new EventEmitter();
     @Output() playTrackEvent = new EventEmitter<any>();
     @Output() pauseTrackEvent = new EventEmitter<any>();
+    isPlaylistPlaying = false;
 
     constructor(private musicViewService: MusicViewService) {
         this.subscribers.selectTrack = musicViewService
@@ -58,6 +58,12 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
             .getRemoveTrackEvent()
             .subscribe(() => {
                 this.removeTrack();
+            });
+
+        this.subscribers.searchMusicPlayingTrack = musicViewService
+            .getIsSearchMusicPlaying()
+            .subscribe((isSearchMusicPlaying) => {
+                this.isPlaylistPlaying = !isSearchMusicPlaying;
             });
     }
 
@@ -119,5 +125,13 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
         this.player.nativeElement.pause();
         this.player.nativeElement.src = '';
         this.audioPlayerTrack = null;
+    }
+
+    previousTrack() {
+        // TODO
+    }
+
+    nextTrack() {
+        // TODO
     }
 }

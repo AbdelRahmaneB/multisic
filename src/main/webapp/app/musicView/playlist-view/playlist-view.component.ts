@@ -65,6 +65,7 @@ export class PlaylistViewComponent implements OnInit, OnDestroy {
             this.changeSong(track);
             this.musicViewService.playNewTrack(track);
         }
+        this.musicViewService.setIsSearchMusicPlaying(false);
         e.stopPropagation();
     }
 

@@ -156,6 +156,7 @@ export class SearchMusicViewComponent implements OnInit, OnDestroy {
             this.changeTrack(track);
             this.musicViewService.playNewTrack(track);
         }
+        this.musicViewService.setIsSearchMusicPlaying(true);
         this.showPlaylistDropdown = false;
         e.stopPropagation();
     }

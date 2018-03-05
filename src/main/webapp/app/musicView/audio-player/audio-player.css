@@ -9,7 +9,7 @@ audio {
 
 .track-info {
     display: flex;
-    max-width: 400px;
+    max-width: 415px;
     margin: 5px 0;
     align-items: center;
     justify-content: space-between;
@@ -19,12 +19,23 @@ audio {
     padding: 0 5px;
 }
 
-img {
+.album-img {
     width: 30px;
     height: 30px;
+    margin-right: 10px;
 }
 
 .divider {
     border-left: 2px solid #fff;
     height: 30px;
+}
+
+.fa-backward,
+.fa-forward {
+    color: #fff;
+}
+.fa-backward:hover,
+.fa-forward:hover {
+    color: #515254;
+    cursor: pointer;
 }
