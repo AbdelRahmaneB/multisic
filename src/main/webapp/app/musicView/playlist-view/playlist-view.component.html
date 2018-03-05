@@ -11,7 +11,7 @@
       </tr>
       <tr *ngFor="let track of playlist?.tracks" [ngClass]="{selectedTrack: track?.id === selectedTrackId}" class="table-row" (click)="changeSong(track)">
         <td>
-          <div class="album-img-container">
+          <div class="album-img-container" (click)="playTrack($event, track)">
             <img src="{{track.imagesurl}}" class="album-img">
             <div class="overlay">
               <span *ngIf="playingTrackId !== track.id; else pauseBlock" class="icon fa fa-play-circle fa-2x"></span>

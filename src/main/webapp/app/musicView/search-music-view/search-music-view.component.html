@@ -10,7 +10,7 @@
 <div class="scroll-list">
   <div *ngFor="let provider of availableProviders">
     <h3 class="search-result-title">{{provider}}</h3>
-    <div *ngIf="searchResults[provider]?.length > 0; else load" class="sub-search-results">
+    <div *ngIf="searchResults[provider]?.length > 0" class="sub-search-results">
       <table>
         <tr>
           <th></th>

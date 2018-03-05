@@ -75,6 +75,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
 
     selectTrack(track) {
         if (this.isSearchMusicSelected) {
+            this.playlistView.playingTrackId = null;
             this.playlistView.selectedTrackId = null;
         } else {
             this.searchMusicView.playingTrackId = null;

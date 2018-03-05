@@ -19,10 +19,6 @@ export class MusicViewService {
         this.playNewTrackSubject = new Subject<Track>();
     }
 
-    changeTrack(track) {
-        this.selectTrack(track);
-    }
-
     playNewTrack(track) {
         this.playNewTrackSubject.next(track);
     }
@@ -34,8 +30,6 @@ export class MusicViewService {
     pauseTrack() {
         this.playingTrackIdSubject.next(null);
     }
-
-    stopTrack() {}
 
     selectTrack(track) {
         this.selectedTrackSubject.next(track);
