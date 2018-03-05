@@ -4,9 +4,7 @@
   "description": "Description for multisic",
   "private": true,
   "license": "UNLICENSED",
-  "cacheDirectories": [
-    "node_modules"
-  ],
+  "cacheDirectories": ["node_modules"],
   "dependencies": {
     "@angular/common": "5.2.0",
     "@angular/compiler": "5.2.0",
@@ -16,23 +14,6 @@
     "@angular/platform-browser-dynamic": "5.2.0",
     "@angular/router": "5.2.0",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-beta.9",
-    "bootstrap": "4.0.0",
-    "core-js": "2.4.1",
-    "font-awesome": "4.7.0",
-    "jquery": "3.2.1",
-    "ng-jhipster": "0.4.0",
-    "ngx-cookie": "2.0.1",
-    "ngx-infinite-scroll": "0.5.1",
-    "ngx-webstorage": "2.0.1",
-    "reflect-metadata": "0.1.10",
-    "rxjs": "5.5.6",
-    "swagger-ui": "2.2.10",
-    "tether": "1.4.0",
-    "videogular": "^2.2.1",
-    "videogular2": "^6.0.6",
-    "zone.js": "0.8.19"
-  },
-  "devDependencies": {
     "@angular/cli": "1.6.6",
     "@angular/compiler-cli": "5.2.0",
     "@ngtools/webpack": "1.8.5",
@@ -52,18 +33,21 @@
     "generator-jhipster": "4.14.0",
     "html-loader": "0.5.0",
     "html-webpack-plugin": "2.30.1",
-    "jasmine-core": "2.7.0",
-    "karma": "1.7.1",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-coverage": "1.1.1",
-    "karma-intl-shim": "1.0.3",
-    "karma-jasmine": "1.1.0",
-    "karma-junit-reporter": "1.2.0",
-    "karma-notify-reporter": "1.0.1",
-    "karma-phantomjs-launcher": "1.0.4",
-    "karma-remap-istanbul": "0.6.0",
-    "karma-sourcemap-loader": "0.3.7",
-    "karma-webpack": "2.0.4",
+    "bootstrap": "4.0.0",
+    "core-js": "2.4.1",
+    "font-awesome": "4.7.0",
+    "jquery": "3.2.1",
+    "ng-jhipster": "0.4.0",
+    "ngx-cookie": "2.0.1",
+    "ngx-infinite-scroll": "0.5.1",
+    "ngx-webstorage": "2.0.1",
+    "reflect-metadata": "0.1.10",
+    "rxjs": "5.5.6",
+    "swagger-ui": "2.2.10",
+    "tether": "1.4.0",
+    "videogular": "^2.2.1",
+    "videogular2": "^6.0.6",
+    "zone.js": "0.8.19",
     "phantomjs-prebuilt": "2.1.16",
     "proxy-middleware": "0.15.0",
     "rimraf": "2.6.1",
@@ -85,6 +69,20 @@
     "write-file-webpack-plugin": "4.1.0",
     "xml2js": "0.4.17"
   },
+  "devDependencies": {
+    "jasmine-core": "2.7.0",
+    "karma": "1.7.1",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-coverage": "1.1.1",
+    "karma-intl-shim": "1.0.3",
+    "karma-jasmine": "1.1.0",
+    "karma-junit-reporter": "1.2.0",
+    "karma-notify-reporter": "1.0.1",
+    "karma-phantomjs-launcher": "1.0.4",
+    "karma-remap-istanbul": "0.6.0",
+    "karma-sourcemap-loader": "0.3.7",
+    "karma-webpack": "2.0.4"
+  },
   "engines": {
     "node": ">=6.9.0"
   },
@@ -102,14 +100,20 @@
     "build": "yarn run webpack:prod",
     "test": "yarn run lint && karma start src/test/javascript/karma.conf.js",
     "test:watch": "yarn test -- --watch",
-    "webpack:dev": "yarn run webpack-dev-server -- --config webpack/webpack.dev.js --progress --inline --hot --profile --port=9060 --watch-content-base",
-    "webpack:build:main": "yarn run webpack -- --config webpack/webpack.dev.js --progress --profile",
+    "webpack:dev":
+      "yarn run webpack-dev-server -- --config webpack/webpack.dev.js --progress --inline --hot --profile --port=9060 --watch-content-base",
+    "webpack:build:main":
+      "yarn run webpack -- --config webpack/webpack.dev.js --progress --profile",
     "webpack:build": "yarn run cleanup && yarn run webpack:build:main",
-    "webpack:prod:main": "yarn run webpack -- --config webpack/webpack.prod.js --profile",
-    "webpack:prod": "yarn run cleanup && yarn run webpack:prod:main && yarn run clean-www",
+    "webpack:prod:main":
+      "yarn run webpack -- --config webpack/webpack.prod.js --profile",
+    "webpack:prod":
+      "yarn run cleanup && yarn run webpack:prod:main && yarn run clean-www",
     "webpack:test": "yarn run test",
-    "webpack-dev-server": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js",
+    "webpack-dev-server":
+      "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "webpack":
+      "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js",
     "postinstall": "node node_modules/phantomjs-prebuilt/install.js"
   }
 }
