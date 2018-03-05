@@ -21,11 +21,11 @@ export class MusicViewComponent implements OnInit, OnDestroy {
     @ViewChild(SearchMusicViewComponent)
     searchMusicView: SearchMusicViewComponent;
 
-    private playLists: PlayList[];
-    private currentAccount: any;
-    private eventSubscriber: Subscription;
-    private selectedPlaylist: PlayList;
-    private isSearchMusicSelected: boolean = true;
+    playLists: PlayList[];
+    currentAccount: any;
+    eventSubscriber: Subscription;
+    selectedPlaylist: PlayList;
+    isSearchMusicSelected: boolean = true;
 
     constructor(
         private playListService: PlayListService,

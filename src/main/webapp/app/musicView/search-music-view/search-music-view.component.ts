@@ -34,18 +34,18 @@ import 'rxjs/add/operator/distinctUntilChanged';
 export class SearchMusicViewComponent implements OnInit {
     @Output() newTrack = new EventEmitter<Track>();
 
-    public playingTrackId: number = null;
-    public selectedTrackId: number = null;
+    playingTrackId: number = null;
+    selectedTrackId: number = null;
 
-    private playlists: PlayList[];
-    private searchResults: any = {};
-    private currentAccount: any;
-    private searchField: FormControl;
-    private loading: boolean = false;
-    private availableProviders: string[];
-    private subscribers: any = {};
-    private showPlaylistDropdown: boolean = false;
-    private elementRef;
+    playlists: PlayList[];
+    searchResults: any = {};
+    currentAccount: any;
+    searchField: FormControl;
+    loading: boolean = false;
+    availableProviders: string[];
+    subscribers: any = {};
+    showPlaylistDropdown: boolean = false;
+    elementRef;
 
     constructor(
         private playListService: PlayListService,
