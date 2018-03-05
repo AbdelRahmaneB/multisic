@@ -3,27 +3,28 @@
     "project": {
         "name": "multisic"
     },
-    "apps": [{
-        "root": "src/main/webapp",
-        "outDir": "target/www/app",
-        "assets": [
-            "content",
-            "favicon.ico"
-        ],
-        "index": "index.html",
-        "main": "app/app.main.ts",
-        "polyfills": "app/polyfills.ts",
-        "test": "src/test/javascript/spec/entry.ts",
-        "tsconfig": "../../../tsconfig.json",
-        "prefix": "jhi",
-        "mobile": false,
-        "styles": [
-            "content/css/vendor.css",
-            "content/css/global.css"
-        ],
-        "scripts": []
-    }],
-    "lint": [{
+    "apps": [
+        {
+            "root": "src/main/webapp",
+            "outDir": "target/www/app",
+            "assets": ["content", "favicon.ico"],
+            "index": "index.html",
+            "main": "app/app.main.ts",
+            "polyfills": "app/polyfills.ts",
+            "test": "src/test/javascript/spec/entry.ts",
+            "tsconfig": "../../../tsconfig.json",
+            "prefix": "jhi",
+            "mobile": false,
+            "styles": [
+                "content/css/vendor.css",
+                "content/css/global.css",
+                "../node_modules/videogular2/fonts/videogular.css"
+            ],
+            "scripts": []
+        }
+    ],
+    "lint": [
+        {
             "project": "../../../tsconfig.json"
         },
         {
@@ -38,21 +39,21 @@
     "defaults": {
         "styleExt": "css",
         "prefixInterfaces": false,
-        "component" : {
-            "inlineStyle" : true,
+        "component": {
+            "inlineStyle": true,
             "inlineTemplate": false,
             "spec": false
         },
-        "directive" : {
+        "directive": {
             "spec": false
         },
-        "guard" : {
+        "guard": {
             "spec": false
         },
-        "pipe" : {
+        "pipe": {
             "spec": false
         },
-        "service" : {
+        "service": {
             "spec": false
         }
     },

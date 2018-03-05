@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
@@ -20,36 +20,38 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
     entry: {
         polyfills: './src/main/webapp/app/polyfills',
         global: './src/main/webapp/content/css/global.css',
-        main: './src/main/webapp/app/app.main'
+        main: './src/main/webapp/app/app.main',
     },
     output: {
         path: utils.root('target/www'),
         filename: 'app/[name].[hash].bundle.js',
-        chunkFilename: 'app/[id].[hash].chunk.js'
+        chunkFilename: 'app/[id].[hash].chunk.js',
     },
     module: {
-        rules: [{
-            test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-            use: [ '@ngtools/webpack' ]
-        },
-        {
-            test: /\.css$/,
-            loaders: ['to-string-loader', 'css-loader'],
-            exclude: /(vendor\.css|global\.css)/
-        },
-        {
-            test: /(vendor\.css|global\.css)/,
-            use: extractCSS.extract({
-                fallback: 'style-loader',
-                use: ['css-loader']
-            })
-        }]
+        rules: [
+            {
+                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+                use: ['@ngtools/webpack'],
+            },
+            {
+                test: /\.css$/,
+                loaders: ['to-string-loader', 'css-loader'],
+                exclude: /(vendor\.css|global\.css)/,
+            },
+            {
+                test: /(vendor\.css|global\.css)/,
+                use: extractCSS.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader'],
+                }),
+            },
+        ],
     },
     plugins: [
         extractCSS,
         new Visualizer({
             // Webpack statistics in target folder
-            filename: '../stats.html'
+            filename: '../stats.html',
         }),
         new UglifyJSPlugin({
             parallel: true,
@@ -68,27 +70,27 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                     toplevel: true,
                     if_return: true,
                     inline: true,
-                    join_vars: true
+                    join_vars: true,
                 },
                 output: {
                     comments: false,
                     beautify: false,
-                    indent_level: 2
-                }
-            }
+                    indent_level: 2,
+                },
+            },
         }),
         new AngularCompilerPlugin({
             mainPath: utils.root('src/main/webapp/app/app.main.ts'),
             tsConfigPath: utils.root('tsconfig-aot.json'),
-            sourceMap: true
+            sourceMap: true,
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
-            debug: false
+            debug: false,
         }),
-        new WorkboxPlugin({
-          clientsClaim: true,
-          skipWaiting: true,
-        })
-    ]
+        new WorkboxPlugin.GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true,
+        }),
+    ],
 });
