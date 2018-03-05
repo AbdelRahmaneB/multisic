@@ -1,13 +1,18 @@
 import {
     Component,
     OnInit,
+    OnDestroy,
     Input,
     Output,
     ViewChild,
     EventEmitter,
 } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+
 import { PlayList } from '../music-sidebar/play-list.model';
 import { Track } from '../track/track.model';
+import { MusicViewService } from '../musicView.service';
+
 // ex : http://static.videogular.com/assets/audios/videogular.mp3
 @Component({
     selector: 'jhi-audio-player',
@@ -15,21 +20,51 @@ import { Track } from '../track/track.model';
     styleUrls: ['audio-player.css'],
 })
 export class AudioPlayerComponent implements OnInit {
+    private subscribers: any = {};
+    private audioPlayerTrack: Track;
+
     @ViewChild('audio') player: any;
-    @Input() playingTrack: Track;
     @Input() selectedPlaylist: PlayList;
     @Output() playNextSongEvent = new EventEmitter();
     @Output() playTrackEvent = new EventEmitter<any>();
     @Output() pauseTrackEvent = new EventEmitter<any>();
 
-    constructor() {}
+    constructor(private musicViewService: MusicViewService) {
+        this.subscribers.selectTrack = musicViewService
+            .getSelectTrackEvent()
+            .subscribe(track => {
+                this.selectTrack(track);
+            });
+
+        this.subscribers.playNewTrack = musicViewService
+            .getPlayNewTrackTrackEvent()
+            .subscribe(track => {
+                this.selectTrack(track);
+                this.playNewTrack(track);
+            });
+
+        this.subscribers.playPauseTrack = musicViewService
+            .getPlayingTrackIdEvent()
+            .subscribe(id => {
+                if (id) {
+                    this.play();
+                } else {
+                    this.pause();
+                }
+            });
+    }
 
     ngOnInit() {}
 
+    ngOnDestroy() {
+        this.subscribers.selectTrack.unsubscribe();
+        this.subscribers.playNewTrack.unsubscribe();
+        this.subscribers.playPauseTrack.unsubscribe();
+    }
+
     playNewTrack(track: Track) {
-        this.selectTrack(track);
         this.player.nativeElement.load();
-        this.play();
+        this.onPlay();
     }
 
     playNextSong() {
@@ -43,7 +78,7 @@ export class AudioPlayerComponent implements OnInit {
     }
 
     selectTrack(track) {
-        this.playingTrack = track;
+        this.audioPlayerTrack = track;
         this.player.nativeElement.src = track.previewurl;
     }
 
@@ -56,10 +91,14 @@ export class AudioPlayerComponent implements OnInit {
     }
 
     onPlay() {
-        this.playTrackEvent.emit(this.playingTrack);
+        //this.playTrackEvent.emit(this.playingTrack);
+        this.musicViewService.playTrack(this.audioPlayerTrack.id);
+        this.play();
     }
 
     onPause() {
-        this.pauseTrackEvent.emit(this.playingTrack);
+        //this.pauseTrackEvent.emit(this.playingTrack);
+        this.musicViewService.pauseTrack();
+        this.pause();
     }
 }

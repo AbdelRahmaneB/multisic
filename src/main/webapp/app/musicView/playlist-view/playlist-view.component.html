@@ -1,5 +1,5 @@
 <h2>{{playlist?.name}}</h2>
-<div class="playlist">
+<div class="scroll-list">
   <div *ngIf="playlist?.tracks && playlist?.tracks.length > 0">
     <table class="track-list">
       <tr>
@@ -9,7 +9,7 @@
         <th>Album</th>
         <th></th>
       </tr>
-      <tr *ngFor="let track of playlist?.tracks" [ngClass]="{selectedTrack: track?.id === selectedTrackId}" (click)="changeSong(track)">
+      <tr *ngFor="let track of playlist?.tracks" [ngClass]="{selectedTrack: track?.id === selectedTrackId}" class="table-row" (click)="changeSong(track)">
         <td>
           <div class="album-img-container">
             <img src="{{track.imagesurl}}" class="album-img">

@@ -86,7 +86,7 @@ td {
 }
 
 .selectedTrack {
-    background-color: #fcc387;
+    background-color: #fcc387 !important;
 }
 
 .album-img-container {
@@ -127,6 +127,11 @@ td {
 
 .overlay:hover .fa-play-circle {
     color: #26272a;
+}
+
+.scroll-list {
+    max-height: 370px;
+    overflow-y: scroll;
 }
 
 /* ==========================================================================

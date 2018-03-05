@@ -6,8 +6,3 @@
 .fa-trash {
     padding: 5px;
 }
-
-.playlist {
-    max-height: 375px;
-    overflow-y: scroll;
-}

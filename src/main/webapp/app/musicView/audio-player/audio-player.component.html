@@ -1,16 +1,16 @@
 <div class="audio-player">
-  <div *ngIf="playingTrack" class="track-info">
-    <img src="{{playingTrack.imagesurl}}"></img>
+  <div *ngIf="audioPlayerTrack" class="track-info">
+    <img src="{{audioPlayerTrack.imagesurl}}"></img>
     <div class="pad">
-      <span class="revert-text">{{playingTrack.name.substring(0,12)}}{{playingTrack.name.length >= 12 ? '...' : ''}}</span>
+      <span class="revert-text">{{audioPlayerTrack.name.substring(0,12)}}{{audioPlayerTrack.name.length >= 12 ? '...' : ''}}</span>
     </div>
     <div class="divider"></div>
     <div class="pad">
-      <span class="revert-text">{{playingTrack.artist.substring(0,12)}}{{playingTrack.artist.length >= 12 ? '...' : ''}}</span>
+      <span class="revert-text">{{audioPlayerTrack.artist.substring(0,12)}}{{audioPlayerTrack.artist.length >= 12 ? '...' : ''}}</span>
     </div class="pad">
     <div class="divider"></div>
     <div class="pad">
-      <span class="revert-text">{{playingTrack.album.substring(0,12)}}{{playingTrack.album.length >= 12 ? '...' : ''}}</span>
+      <span class="revert-text">{{audioPlayerTrack.album.substring(0,12)}}{{audioPlayerTrack.album.length >= 12 ? '...' : ''}}</span>
     </div>
   </div>
   <audio #audio id="singleAudio" preload="auto" controls on-ended="playNextSong()" on-play="onPlay()" on-pause="onPause()">

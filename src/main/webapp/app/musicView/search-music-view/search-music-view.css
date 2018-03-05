@@ -11,17 +11,12 @@
     margin-bottom: 10px;
 }
 
-.fa-search {
-    color: grey;
-    width: 25px;
-}
-
 form,
 .form-group {
     width: 100%;
 }
 
-input {
+.search-input {
     outline: 0;
     color: grey;
     border: none;
@@ -30,11 +25,9 @@ input {
     align-self: stretch;
     width: 90%;
 }
-
-.search-results {
-    width: 100%;
-    max-height: 370px;
-    overflow-y: scroll;
+.fa-search {
+    color: grey;
+    width: 25px;
 }
 
 .sub-search-results {

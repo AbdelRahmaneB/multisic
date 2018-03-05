@@ -6,6 +6,7 @@ import { MusicViewComponent, musicViewRoutes } from './';
 import { PlayListService } from './music-sidebar/play-list.service';
 import { PlayListPopupService } from './music-sidebar/play-list-popup.service';
 import { SearchMusicService } from './search-music-view/search-music.service';
+import { MusicViewService } from './musicView.service';
 import { MusicSidebarComponent } from './music-sidebar/music-sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -34,7 +35,12 @@ const MUSIC_STATES = [...musicViewRoutes];
         AudioPlayerComponent,
     ],
     entryComponents: [MusicViewComponent],
-    providers: [PlayListService, PlayListPopupService, SearchMusicService],
+    providers: [
+        PlayListService,
+        PlayListPopupService,
+        SearchMusicService,
+        MusicViewService,
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MultisicMusicViewModule {}

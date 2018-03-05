@@ -3,11 +3,11 @@
   <form class="form-inline">
     <div class="form-group">
       <i class="fa fa-search"></i>
-      <input type="text" placeholder="Search.." [formControl]="searchField" name="search">
+      <input class="search-input" type="text" placeholder="Search.." [formControl]="searchField" name="search">
     </div>
   </form>
 </div>
-<div class="search-results">
+<div class="scroll-list">
   <div *ngFor="let provider of availableProviders">
     <h3 class="search-result-title">{{provider}}</h3>
     <div *ngIf="searchResults[provider]?.length > 0; else load" class="sub-search-results">
@@ -40,7 +40,7 @@
             <div class="add-track-container">
               <span class="fa fa-plus fa-lg" (click)="openDropdown($event, result)"></span>
               <ul *ngIf="result.id === selectedTrackId && showPlaylistDropdown">
-                <li *ngFor="let playlist of playlists" (click)="addToPlaylist(playlist, result)">{{playlist.name}}</li>
+                <li *ngFor="let playlist of playlists" (click)="addToPlaylist($event, playlist, result)">{{playlist.name}}</li>
               </ul>
             </div>
           </td>
