@@ -9,14 +9,13 @@ audio {
 
 .track-info {
     display: flex;
-    max-width: 415px;
     margin: 5px 0;
     align-items: center;
-    justify-content: space-between;
 }
 
 .pad {
-    padding: 0 5px;
+    padding: 0 10px;
+    max-height: 24px;
 }
 
 .album-img {

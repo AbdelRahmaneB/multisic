@@ -143,6 +143,7 @@ export class SearchMusicViewComponent implements OnInit, OnDestroy {
         if (this.selectedTrackId !== track.id) {
             this.selectedTrackId = track.id;
             this.playingTrackId = null;
+            this.musicViewService.setIsSearchMusicPlaying(true);
             this.newTrack.emit(track);
         }
     }
@@ -150,13 +151,14 @@ export class SearchMusicViewComponent implements OnInit, OnDestroy {
     playTrack(e, track) {
         if (this.playingTrackId === track.id) {
             this.musicViewService.pauseTrack();
+            this.musicViewService.setIsSearchMusicPlaying(true);
         } else if (this.selectedTrackId === track.id && !this.playingTrackId) {
             this.musicViewService.playTrack(track.id);
+            this.musicViewService.setIsSearchMusicPlaying(true);
         } else {
             this.changeTrack(track);
             this.musicViewService.playNewTrack(track);
         }
-        this.musicViewService.setIsSearchMusicPlaying(true);
         this.showPlaylistDropdown = false;
         e.stopPropagation();
     }
