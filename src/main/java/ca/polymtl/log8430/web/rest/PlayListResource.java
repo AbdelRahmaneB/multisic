@@ -46,9 +46,7 @@ public class PlayListResource {
     @Timed
     public ResponseEntity<PlayList> createPlayList(@RequestBody PlayList playList) throws URISyntaxException {
         log.debug("REST request to save PlayList : {}", playList);
-        if (playList.getId() != null) {
-            throw new BadRequestAlertException("A new playList cannot already have an ID", ENTITY_NAME, "idexists");
-        }
+
         PlayList result = playListRepository.save(playList);
         return ResponseEntity.created(new URI("/api/play-lists/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -68,9 +66,7 @@ public class PlayListResource {
     @Timed
     public ResponseEntity<PlayList> updatePlayList(@RequestBody PlayList playList) throws URISyntaxException {
         log.debug("REST request to update PlayList : {}", playList);
-        if (playList.getId() == null) {
-            return createPlayList(playList);
-        }
+
         PlayList result = playListRepository.save(playList);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, playList.getId().toString()))
