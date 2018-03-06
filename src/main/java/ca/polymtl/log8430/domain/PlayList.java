@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.Objects;
 
 /**
@@ -21,7 +22,6 @@ public class PlayList implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -34,6 +34,10 @@ public class PlayList implements Serializable {
                inverseJoinColumns = @JoinColumn(name="tracks_id", referencedColumnName="id"))
     private Set<Track> tracks = new HashSet<>();
 
+	public PlayList() {
+		this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+	}
+	
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
