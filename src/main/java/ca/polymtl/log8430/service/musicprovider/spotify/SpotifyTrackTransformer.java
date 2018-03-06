@@ -2,7 +2,9 @@ package ca.polymtl.log8430.service.musicprovider.spotify;
 
 import ca.polymtl.log8430.domain.Track;
 import ca.polymtl.log8430.service.musicprovider.TrackTransformer;
-
+/**
+ * class to transform Spotify Track to our own model Track model
+ */
 class SpotifyTrackTransformer implements TrackTransformer<com.wrapper.spotify.model_objects.specification.Track> {
 
 	@Override

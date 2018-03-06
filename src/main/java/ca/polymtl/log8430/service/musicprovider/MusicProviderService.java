@@ -5,23 +5,23 @@ import ca.polymtl.log8430.domain.Track;
 import java.util.List;
 
 /**
- * ..
+ * This interface refer to the required method to connect to different streaming music APIs
  *
  */
 public interface MusicProviderService {
-	
+
 	/**
-	 * ..
-	 * 
-	 * @param query ..
-	 * @return
+	 * search method to query the corresponding streaming API
+	 *
+	 * @param query : term to query the streaming API
+	 * @return resulted tracks
 	 */
     List<Track> search(String query);
-    
+
     /**
-     * ..
-     * 
-     * @return ..
+     * To get all available streaming provider string
+     *
+     * @return array of string corresponding to provider name
      */
     String getProviderName();
 }

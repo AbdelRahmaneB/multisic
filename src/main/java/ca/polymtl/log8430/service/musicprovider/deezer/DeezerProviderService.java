@@ -18,6 +18,9 @@ import com.zeloon.deezer.io.HttpResourceConnection;
 import ca.polymtl.log8430.domain.Track;
 import ca.polymtl.log8430.service.musicprovider.MusicProviderService;
 
+/**
+ * Service class for managing Deezer API.
+ */
 @Service
 @Transactional
 class DeezerProviderService implements MusicProviderService {

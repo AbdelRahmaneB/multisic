@@ -21,6 +21,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
+/**
+ * Service class for managing Spotify API.
+ */
 @Service
 @Transactional
 class SpotifyProviderService implements MusicProviderService {
@@ -55,13 +58,13 @@ class SpotifyProviderService implements MusicProviderService {
 			log.error("Couldn't get an Access Token : ", e); //$NON-NLS-1$
 		}
 	}
-	
+
     @Override
     public List<Track> search(String query) {
         if(spotifyApi.getAccessToken() == null){
             setAccessToken();
         }
-        
+
         List<Track> tracks;
 
         try {
@@ -72,17 +75,17 @@ class SpotifyProviderService implements MusicProviderService {
                 .build();
 
             final Future<Paging<com.wrapper.spotify.model_objects.specification.Track>> pagingFuture = searchTracksRequest.executeAsync();
-            
+
             tracks = Arrays.stream(pagingFuture.get().getItems())
             	.filter(t -> t.getPreviewUrl() != null)
                 .map(spotifyTrackTransformer::transform)
                 .collect(Collectors.toList());
-            
+
         } catch (InterruptedException | ExecutionException e) {
         	tracks = new ArrayList<>();
             log.error("Error when searching for query : '{}' : ", query, e); //$NON-NLS-1$
         }
-        
+
         return tracks;
     }
 

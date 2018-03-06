@@ -3,6 +3,9 @@ package ca.polymtl.log8430.service.musicprovider.deezer;
 import ca.polymtl.log8430.domain.Track;
 import ca.polymtl.log8430.service.musicprovider.TrackTransformer;
 
+/**
+ * class to transform Deezer Track to our own model Track model
+ */
 class DeezerTrackTransformer implements TrackTransformer<com.zeloon.deezer.domain.Track> {
 
 	@Override
