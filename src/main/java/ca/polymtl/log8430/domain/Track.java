@@ -1,6 +1,9 @@
 package ca.polymtl.log8430.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -23,6 +26,7 @@ public class Track implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @Column(name = "name")
