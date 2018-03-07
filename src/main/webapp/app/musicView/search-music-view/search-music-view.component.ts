@@ -34,8 +34,8 @@ import 'rxjs/add/operator/distinctUntilChanged';
 export class SearchMusicViewComponent implements OnInit, OnDestroy {
     @Output() newTrack = new EventEmitter<Track>();
 
-    playingTrackId: number = null;
-    selectedTrackId: number = null;
+    playingTrackId: string = null;
+    selectedTrackId: string = null;
 
     playlists: PlayList[];
     searchResults: any = {};
@@ -177,30 +177,11 @@ export class SearchMusicViewComponent implements OnInit, OnDestroy {
         this.showPlaylistDropdown = false;
 
         if (!playlist.tracks.find((t) => t.id === track.id)) {
-            // Create own unique id
-            const trackWithoutId = Object.assign({}, track);
-            delete trackWithoutId.id;
-            this.subscribeToTrackResponse(
-                this.trackService.create(trackWithoutId),
-                playlist
-            );
+            const updatedPlaylist = Object.assign({}, playlist, {...playlist, tracks: [...playlist.tracks, track]});
+            console.log(updatedPlaylist)
+            this.subscribeToPlaylistResponse(this.playListService.update(updatedPlaylist));
         }
         e.stopPropagation();
-    }
-
-    private subscribeToTrackResponse(
-        result: Observable<HttpResponse<Track>>,
-        playlist: PlayList
-    ) {
-        result.subscribe((res: HttpResponse<Track>) =>
-            this.onSaveTrackSuccess(res.body, playlist)
-        );
-    }
-
-    onSaveTrackSuccess(track: Track, playlist: PlayList) {
-        // Update playlist
-        playlist.tracks.push(track);
-        this.subscribeToPlaylistResponse(this.playListService.update(playlist));
     }
 
     private subscribeToPlaylistResponse(

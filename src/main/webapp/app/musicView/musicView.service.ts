@@ -9,7 +9,7 @@ import { Track } from './track/track.model';
 export class MusicViewService {
     private updateTrackSubject: Subject<Track>;
     private selectedTrackSubject: Subject<Track>;
-    private playingTrackIdSubject: Subject<number>;
+    private playingTrackIdSubject: Subject<string>;
     private playNewTrackSubject: Subject<Track>;
     private removeTrackSubject: Subject<any>;
     private musicSearchViewPlayingTrackSubject: Subject<boolean>;
@@ -17,7 +17,7 @@ export class MusicViewService {
     constructor() {
         this.updateTrackSubject = new Subject<Track>();
         this.selectedTrackSubject = new Subject<Track>();
-        this.playingTrackIdSubject = new Subject<number>();
+        this.playingTrackIdSubject = new Subject<string>();
         this.playNewTrackSubject = new Subject<Track>();
         this.removeTrackSubject = new Subject<any>();
         this.musicSearchViewPlayingTrackSubject = new Subject<boolean>();
@@ -55,7 +55,7 @@ export class MusicViewService {
         return this.playNewTrackSubject.asObservable();
     }
 
-    getPlayingTrackIdEvent(): Observable<number> {
+    getPlayingTrackIdEvent(): Observable<string> {
         return this.playingTrackIdSubject.asObservable();
     }
 

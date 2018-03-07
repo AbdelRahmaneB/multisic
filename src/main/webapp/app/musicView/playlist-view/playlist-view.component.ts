@@ -23,8 +23,8 @@ export class PlaylistViewComponent implements OnInit, OnDestroy {
     @Output() getIsSearchMusic = new EventEmitter<boolean>();
 
     subscribers: any = {};
-    selectedTrackId: number = null;
-    playingTrackId: number = null;
+    selectedTrackId: string = null;
+    playingTrackId: string = null;
 
     constructor(
         private musicViewService: MusicViewService,
@@ -81,7 +81,7 @@ export class PlaylistViewComponent implements OnInit, OnDestroy {
         );
 
         // Without a subscribe call, Observer do nothing, so we put and empty subscribe
-        this.playListService.update(this.playlist).subscribe(r => {});
+        this.playListService.update(this.playlist).subscribe((r) => {});
         e.stopPropagation();
     }
 

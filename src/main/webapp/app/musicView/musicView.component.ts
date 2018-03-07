@@ -41,6 +41,7 @@ export class MusicViewComponent implements OnInit, OnDestroy {
         this.playListService.query().subscribe(
             (res: HttpResponse<PlayList[]>) => {
                 this.playLists = res.body;
+                console.log(this.playLists)
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
