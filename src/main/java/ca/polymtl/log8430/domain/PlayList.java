@@ -3,6 +3,9 @@ package ca.polymtl.log8430.domain;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -22,12 +25,13 @@ public class PlayList implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "play_list_track",
                joinColumns = @JoinColumn(name="play_lists_id", referencedColumnName="id"),

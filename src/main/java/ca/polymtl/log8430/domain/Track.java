@@ -1,6 +1,9 @@
 package ca.polymtl.log8430.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -23,6 +26,7 @@ public class Track implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @Column(name = "name")
@@ -40,9 +44,12 @@ public class Track implements Serializable {
     @Column(name = "previewurl")
     private String previewurl;
 
-    @ManyToMany(mappedBy = "tracks")
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "play_list_track",
+				inverseJoinColumns = @JoinColumn(name="play_lists_id", referencedColumnName="id"),
+			    joinColumns = @JoinColumn(name="tracks_id", referencedColumnName="id"))
     private Set<PlayList> playlists = new HashSet<>();
     
 	public Track() {
