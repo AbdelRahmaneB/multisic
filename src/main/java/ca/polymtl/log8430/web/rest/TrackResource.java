@@ -46,9 +46,7 @@ public class TrackResource {
     @Timed
     public ResponseEntity<Track> createTrack(@RequestBody Track track) throws URISyntaxException {
         log.debug("REST request to save Track : {}", track);
-        if (track.getId() != null) {
-            throw new BadRequestAlertException("A new track cannot already have an ID", ENTITY_NAME, "idexists");
-        }
+
         Track result = trackRepository.save(track);
         return ResponseEntity.created(new URI("/api/tracks/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -68,9 +66,7 @@ public class TrackResource {
     @Timed
     public ResponseEntity<Track> updateTrack(@RequestBody Track track) throws URISyntaxException {
         log.debug("REST request to update Track : {}", track);
-        if (track.getId() == null) {
-            return createTrack(track);
-        }
+
         Track result = trackRepository.save(track);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, track.getId().toString()))

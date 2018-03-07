@@ -27,7 +27,7 @@ public class PlayList implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "play_list_track",
                joinColumns = @JoinColumn(name="play_lists_id", referencedColumnName="id"),
