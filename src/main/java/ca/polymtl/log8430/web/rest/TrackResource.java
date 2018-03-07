@@ -109,6 +109,7 @@ public class TrackResource {
     @Timed
     public ResponseEntity<Void> deleteTrack(@PathVariable Long id) {
         log.debug("REST request to delete Track : {}", id);
+        //TODO [in service layer] should remove the track from related playlists before deleting it 
         trackRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
