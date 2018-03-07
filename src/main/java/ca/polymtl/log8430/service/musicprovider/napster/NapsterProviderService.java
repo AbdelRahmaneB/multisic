@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service class for managing Napster API.
+ */
 @Service
 @Transactional
 class NapsterProviderService implements MusicProviderService {
@@ -18,7 +21,7 @@ class NapsterProviderService implements MusicProviderService {
     private final Logger log = LoggerFactory.getLogger(NapsterProviderService.class);
     private static final String MUSIC_PROVIDER_NAME = "napster";
 
-    
+
     @Override
     public List<Track> search(String query) {
         //TODO REMOVE MOCK AND DO ACTUAL CALLS HERE
@@ -33,7 +36,7 @@ class NapsterProviderService implements MusicProviderService {
         tracks.add(track);
         return tracks;
     }
-    
+
     @Override
     public String getProviderName() {
         return MUSIC_PROVIDER_NAME;
