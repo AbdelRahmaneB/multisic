@@ -41,7 +41,6 @@ export class MusicViewComponent implements OnInit, OnDestroy {
         this.playListService.query().subscribe(
             (res: HttpResponse<PlayList[]>) => {
                 this.playLists = res.body;
-                console.log(this.playLists)
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -91,6 +90,11 @@ export class MusicViewComponent implements OnInit, OnDestroy {
         this.selectedPlaylist = null;
         this.musicSidebarView.selectedPlaylist = null;
         this.isSearchMusicSelected = searchMusic;
+    }
+
+    updatePlaylist(playlist) {
+        const foundIndex = this.playLists.findIndex((p) => p.id === playlist.id);
+        this.playLists[foundIndex] = playlist;
     }
 
     private onError(error) {

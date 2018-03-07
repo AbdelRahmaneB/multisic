@@ -33,11 +33,12 @@ import 'rxjs/add/operator/distinctUntilChanged';
 })
 export class SearchMusicViewComponent implements OnInit, OnDestroy {
     @Output() newTrack = new EventEmitter<Track>();
+    @Output() updatePlaylist = new EventEmitter<PlayList>();
 
     playingTrackId: string = null;
     selectedTrackId: string = null;
 
-    playlists: PlayList[];
+    @Input() playLists: PlayList[];
     searchResults: any = {};
     currentAccount: any;
     searchField: FormControl;
@@ -67,9 +68,6 @@ export class SearchMusicViewComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadAllProviders();
-        this.loadAllPlaylists();
-
-        this.registerChangeInPlayLists();
         this.searchField = new FormControl();
         this.searchField.valueChanges
             .debounceTime(400)
@@ -116,26 +114,10 @@ export class SearchMusicViewComponent implements OnInit, OnDestroy {
         });
     }
 
-    loadAllPlaylists() {
-        this.playListService.query().subscribe(
-            (res: HttpResponse<PlayList[]>) => {
-                this.playlists = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
-
     initSearch() {
         this.availableProviders.forEach((provider) => {
             this.searchResults[provider] = [];
         });
-    }
-
-    registerChangeInPlayLists() {
-        this.subscribers.eventManager = this.eventManager.subscribe(
-            'playListListModification',
-            (response) => this.loadAllPlaylists()
-        );
     }
 
     changeTrack(track) {
@@ -178,7 +160,6 @@ export class SearchMusicViewComponent implements OnInit, OnDestroy {
 
         if (!playlist.tracks.find((t) => t.id === track.id)) {
             const updatedPlaylist = Object.assign({}, playlist, {...playlist, tracks: [...playlist.tracks, track]});
-            console.log(updatedPlaylist)
             this.subscribeToPlaylistResponse(this.playListService.update(updatedPlaylist));
         }
         e.stopPropagation();
@@ -188,10 +169,7 @@ export class SearchMusicViewComponent implements OnInit, OnDestroy {
         result: Observable<HttpResponse<PlayList>>
     ) {
         result.subscribe((res: HttpResponse<PlayList>) =>
-            this.eventManager.broadcast({
-                name: 'playListListModification',
-                content: 'OK',
-            })
+            this.updatePlaylist.emit(res.body)
         );
     }
 
