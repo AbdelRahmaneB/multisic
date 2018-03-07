@@ -76,13 +76,12 @@ export class PlaylistViewComponent implements OnInit, OnDestroy {
             this.playingTrackId = null;
             this.musicViewService.removeTrack();
         }
-
         this.playlist.tracks = this.playlist.tracks.filter(
             (t) => t.id !== track.id
         );
 
-        // TODO fix foreign key constraint
-        // this.playListService.update(this.playlist);
+        // Without a subscribe call, Observer do nothing, so we put and empty subscribe
+        this.playListService.update(this.playlist).subscribe(r => {});
         e.stopPropagation();
     }
 

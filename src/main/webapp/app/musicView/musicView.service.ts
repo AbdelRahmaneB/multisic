@@ -40,7 +40,7 @@ export class MusicViewService {
     }
 
     removeTrack() {
-        this.removeTrackSubject.next();
+        this.removeTrackSubject.next(null);
     }
 
     setIsSearchMusicPlaying(isPlaying) {
