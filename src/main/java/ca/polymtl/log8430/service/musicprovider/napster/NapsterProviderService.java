@@ -22,6 +22,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 
+/**
+ * Service class for managing Napster API.
+ */
 @Service
 @Transactional
 class NapsterProviderService implements MusicProviderService {
@@ -36,7 +39,6 @@ class NapsterProviderService implements MusicProviderService {
     @Override
     public List<Track> search(String query) {
         List<Track> tracks = new ArrayList<>();
-        //Track track = new Track();
 
         try {
             // source: https://www.mkyong.com/java/how-to-send-http-request-getpost-in-java/
@@ -70,22 +72,18 @@ class NapsterProviderService implements MusicProviderService {
             for(int i=0; i<tracksJson.size(); i++){
                 Track toTrack = new Track();
                 JSONObject track = (JSONObject) jp.parse(tracksJson.get(i).toString());
-                //toTrack.setId(track.get("id").toString());
+                //toTrack.setId(track.get("id").toString()); // les id devraient etre String mais sont Long.
                 toTrack.setName(track.get("name").toString());
                 toTrack.setArtist(track.get("artistName").toString());
                 toTrack.setAlbum(track.get("albumName").toString());
                 toTrack.setPreviewurl(track.get("previewURL").toString()); 
                 toTrack.setImagesurl(track.get("name").toString());
-                System.out.print("===================" + i + "======================");
-                System.out.print(toTrack);
                 tracks.add(toTrack);
             }
             
         } catch (Exception e) {
             System.out.println("Error: " + e.getCause().getMessage());
         }
-        System.out.print("=====*-*-*-*-*=====tracks=====*-*-*-*-*=====");
-        System.out.print(tracks);
         return tracks;
     }
 

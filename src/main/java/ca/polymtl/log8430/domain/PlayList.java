@@ -3,11 +3,15 @@ package ca.polymtl.log8430.domain;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.Objects;
 
 /**
@@ -21,19 +25,23 @@ public class PlayList implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "play_list_track",
                joinColumns = @JoinColumn(name="play_lists_id", referencedColumnName="id"),
                inverseJoinColumns = @JoinColumn(name="tracks_id", referencedColumnName="id"))
     private Set<Track> tracks = new HashSet<>();
 
+	public PlayList() {
+		this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+	}
+	
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
