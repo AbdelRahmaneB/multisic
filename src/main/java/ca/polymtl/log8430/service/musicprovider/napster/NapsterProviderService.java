@@ -27,21 +27,19 @@ import org.json.simple.parser.ParseException;
 class NapsterProviderService implements MusicProviderService {
 
     private final String API_KEY = "YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4";
-    private final Logger log = LoggerFactory.getLogger(NapsterProviderService.class);
-    private static final String MUSIC_PROVIDER_NAME = "napster";
-
     private final String BASE_URL = "https://api.napster.com/v2.2/search";
     private final String LIMIT = "10";
+    private final Logger log = LoggerFactory.getLogger(NapsterProviderService.class);
+    private static final String MUSIC_PROVIDER_NAME = "napster";
+    private NapsterTrackTransformer trackTrans;
 
     @Override
     public List<Track> search(String query) {
-        //TODO REMOVE MOCK AND DO ACTUAL CALLS HERE
         List<Track> tracks = new ArrayList<>();
         //Track track = new Track();
 
         try {
             // source: https://www.mkyong.com/java/how-to-send-http-request-getpost-in-java/
-
             String url = BASE_URL + "?query=" + query + "&type=track" + "&per_type_limit=" + LIMIT + "&apikey="
                     + API_KEY;
             URL obj = new URL(url);
@@ -62,24 +60,32 @@ class NapsterProviderService implements MusicProviderService {
             }
             in.close();
 
-            JSONObject json = (JSONObject) new JSONParser().parse(response.toString());
-            JSONObject searchResults = (JSONObject) new JSONParser().parse(json.get("search").toString());
-            JSONObject dataResults = (JSONObject) new JSONParser().parse(searchResults.get("data").toString());
+            JSONParser jp = new JSONParser();
+            JSONObject json = (JSONObject) jp.parse(response.toString());
+            JSONObject searchResults = (JSONObject) jp.parse(json.get("search").toString());
+            JSONObject dataResults = (JSONObject) jp.parse(searchResults.get("data").toString());
             JSONArray tracksJson = (JSONArray) dataResults.get("tracks");
 
+            // devrait ce faire avec le NapsterTrackTransformer mais une raison obsure recoit un objet null
             for(int i=0; i<tracksJson.size(); i++){
-                JSONObject track = (JSONObject) new JSONParser().parse(tracksJson.get(i).toString());
-                //print result
-                System.out.println("==============" + i + "=============");
-                System.out.println(track.get("name"));
-                System.out.println("============================");
+                Track toTrack = new Track();
+                JSONObject track = (JSONObject) jp.parse(tracksJson.get(i).toString());
+                //toTrack.setId(track.get("id").toString());
+                toTrack.setName(track.get("name").toString());
+                toTrack.setArtist(track.get("artistName").toString());
+                toTrack.setAlbum(track.get("albumName").toString());
+                toTrack.setPreviewurl(track.get("previewURL").toString()); 
+                toTrack.setImagesurl(track.get("name").toString());
+                System.out.print("===================" + i + "======================");
+                System.out.print(toTrack);
+                tracks.add(toTrack);
             }
-
-
+            
         } catch (Exception e) {
             System.out.println("Error: " + e.getCause().getMessage());
         }
-
+        System.out.print("=====*-*-*-*-*=====tracks=====*-*-*-*-*=====");
+        System.out.print(tracks);
         return tracks;
     }
 
