@@ -67,7 +67,12 @@ public class PlayListResource {
     public ResponseEntity<PlayList> updatePlayList(@RequestBody PlayList playList) throws URISyntaxException {
         log.debug("REST request to update PlayList : {}", playList);
 
-        PlayList result = playListRepository.save(playList);
+        PlayList aPlaylist = playListRepository.findOneWithEagerRelationships(playList.getId());
+        aPlaylist.setName(playList.getName());
+        aPlaylist.getTracks().removeIf(t -> !playList.getTracks().contains(t));
+        aPlaylist.getTracks().addAll(playList.getTracks());
+        PlayList result = playListRepository.saveAndFlush(aPlaylist);
+        		
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, playList.getId().toString()))
             .body(result);
