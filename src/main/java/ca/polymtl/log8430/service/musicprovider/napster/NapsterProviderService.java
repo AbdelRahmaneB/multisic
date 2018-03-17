@@ -8,8 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import com.github.kaiwinter.rhapsody.api.RhapsodySdkWrapper;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service class for managing Napster API.
@@ -18,22 +23,27 @@ import java.util.List;
 @Transactional
 class NapsterProviderService implements MusicProviderService {
 
-    private final Logger log = LoggerFactory.getLogger(NapsterProviderService.class);
-    private static final String MUSIC_PROVIDER_NAME = "napster";
+	private final Logger log = LoggerFactory.getLogger(NapsterProviderService.class);
+	private static final String MUSIC_PROVIDER_NAME = "napster"; //$NON-NLS-1$
+	private static final int DEFAULT_SEARCH_LIMIT = 10;
+	
+	private static final String API_KEY = "YzdjNjAyNjYtZDEyNC00MzY5LTg4M2EtM2IwNWY4YmJlMTkx"; //$NON-NLS-1$
+	private static final String API_SECRET = "ZTZlZmRjMzctMzk4NC00ZmZiLWFlNDQtNDZkYjYyNjBhYTg4"; //$NON-NLS-1$
 
+	private static final NapsterTrackTransformer napsterTrackTransformer = new NapsterTrackTransformer();
+	private static final RhapsodySdkWrapper rhapsodySdkWrapper =  new RhapsodySdkWrapper(API_KEY, API_SECRET, null);
 
     @Override
     public List<Track> search(String query) {
-        //TODO REMOVE MOCK AND DO ACTUAL CALLS HERE
-        List<Track> tracks = new ArrayList<>();
-        Track track = new Track();
-        track.setId(1L);
-        track.setName("All I Want Napster");
-        track.setArtist("Tania Bowra");
-        track.setImagesurl("https://i.scdn.co/image/985cc10acdbbedb6a16d7c74f9e23553e2b28dbc");
-        track.setAlbum("Place In The Sun");
-        track.setPreviewurl("https://p.scdn.co/mp3-preview/12b8cee72118f995f5494e1b34251e4ac997445e?cid=22e646a7995548b99c0288315abf7fa5");
-        tracks.add(track);
+        Collection<com.github.kaiwinter.rhapsody.model.AlbumData.Track> napsterTracks = 
+        		rhapsodySdkWrapper.searchTrack(query, DEFAULT_SEARCH_LIMIT);
+		
+		List<Track> tracks = Optional.ofNullable(napsterTracks)
+                .orElseGet(Collections::emptyList)
+				.stream()
+				.map(napsterTrackTransformer::transform)
+				.collect(Collectors.toList());
+		
         return tracks;
     }
 
