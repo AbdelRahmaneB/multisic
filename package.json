@@ -4,7 +4,9 @@
   "description": "Description for multisic",
   "private": true,
   "license": "UNLICENSED",
-  "cacheDirectories": ["node_modules"],
+  "cacheDirectories": [
+    "node_modules"
+  ],
   "dependencies": {
     "@angular/common": "5.2.0",
     "@angular/compiler": "5.2.0",
@@ -100,20 +102,14 @@
     "build": "yarn run webpack:prod",
     "test": "yarn run lint && karma start src/test/javascript/karma.conf.js",
     "test:watch": "yarn test -- --watch",
-    "webpack:dev":
-      "yarn run webpack-dev-server -- --config webpack/webpack.dev.js --progress --inline --hot --profile --port=9060 --watch-content-base",
-    "webpack:build:main":
-      "yarn run webpack -- --config webpack/webpack.dev.js --progress --profile",
+    "webpack:dev": "yarn run webpack-dev-server -- --config webpack/webpack.dev.js --progress --inline --hot --profile --port=9060 --watch-content-base",
+    "webpack:build:main": "yarn run webpack -- --config webpack/webpack.dev.js --progress --profile",
     "webpack:build": "yarn run cleanup && yarn run webpack:build:main",
-    "webpack:prod:main":
-      "yarn run webpack -- --config webpack/webpack.prod.js --profile",
-    "webpack:prod":
-      "yarn run cleanup && yarn run webpack:prod:main && yarn run clean-www",
+    "webpack:prod:main": "yarn run webpack -- --config webpack/webpack.prod.js --profile",
+    "webpack:prod": "yarn run cleanup && yarn run webpack:prod:main && yarn run clean-www",
     "webpack:test": "yarn run test",
-    "webpack-dev-server":
-      "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "webpack":
-      "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js",
+    "webpack-dev-server": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js",
     "postinstall": "node node_modules/phantomjs-prebuilt/install.js"
   }
 }
