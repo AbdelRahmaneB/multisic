@@ -15,9 +15,9 @@
 
 logging:
     level:
-        ROOT: DEBUG
-        ca.polymtl.log8430: DEBUG
-        io.github.jhipster: DEBUG
+        ROOT: INFO
+        ca.polymtl.log8430: INFO
+        io.github.jhipster: INFO
 
 spring:
     profiles:
