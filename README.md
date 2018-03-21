@@ -1,6 +1,11 @@
 # multisic
 This application was generated using JHipster 4.14.0, you can find documentation and help at [http://www.jhipster.tech/documentation-archive/v4.14.0](http://www.jhipster.tech/documentation-archive/v4.14.0).
 
+Multisic une petite application web, qui permet de mettre en commun plusieurs fournisseurs de musiques en flux continue. On peut donc rechercher des chansons dans plusieurs fournisseurs simultanément et les faire jouer dans notre application. Multisic comporte également la fonctionnalité de playlist. Une liste de lecture peut être construite avec nos chansons favorites et être sauvegardée pour y avoir accès plus tard. Multisic est présentement connecté sur trois API, soit Spotify, Deezer et Napster.
+
+On doit se connecter sur un utilisateur pour avoir accès à la musique. Deux utilisateurs sont créés par défaut soit user ou admin.
+Voir la section "Development" pour connaitre les commandes à faire pour démarrer l'application.
+
 ## Development
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
