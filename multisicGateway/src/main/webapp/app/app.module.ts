@@ -15,7 +15,7 @@ import { MultisicGatewayAppRoutingModule} from './app-routing.module';
 import { MultisicGatewayHomeModule } from './home/home.module';
 import { MultisicGatewayAdminModule } from './admin/admin.module';
 import { MultisicGatewayAccountModule } from './account/account.module';
-import { MultisicGatewayEntityModule } from './entities/entity.module';
+import { MultisicMusicViewModule } from './entities/musicView.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import {
@@ -36,7 +36,7 @@ import {
         MultisicGatewayHomeModule,
         MultisicGatewayAdminModule,
         MultisicGatewayAccountModule,
-        MultisicGatewayEntityModule,
+        MultisicMusicViewModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
