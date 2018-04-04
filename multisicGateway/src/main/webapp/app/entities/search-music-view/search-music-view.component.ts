@@ -6,6 +6,7 @@ import {
     Output,
     EventEmitter,
     ElementRef,
+    HostListener
 } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
@@ -25,9 +26,6 @@ import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
     selector: 'jhi-search-music-view',
-    host: {
-        '(document:click)': 'handleClick($event)',
-    },
     templateUrl: './search-music-view.component.html',
     styleUrls: ['search-music-view.css'],
 })
@@ -46,6 +44,13 @@ export class SearchMusicViewComponent implements OnInit, OnDestroy {
     subscribers: any = {};
     showPlaylistDropdown = false;
     elementRef;
+
+    @HostListener('document:click')
+    handleClick(event) {
+        if (this.showPlaylistDropdown) {
+            this.showPlaylistDropdown = false;
+        }
+    }
 
     constructor(
         private playListService: PlayListService,
@@ -101,12 +106,6 @@ export class SearchMusicViewComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.subscribers.playPauseTrack.unsubscribe();
         this.subscribers.eventManager.unsubscribe();
-    }
-
-    handleClick(event) {
-        if (this.showPlaylistDropdown) {
-            this.showPlaylistDropdown = false;
-        }
     }
 
     loadAllProviders() {

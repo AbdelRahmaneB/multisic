@@ -81,7 +81,7 @@ export class PlaylistViewComponent implements OnInit, OnDestroy {
         );
 
         // Without a subscribe call, Observer do nothing, so we put and empty subscribe
-        this.playListService.update(this.playlist).subscribe(r => {});
+        this.playListService.update(this.playlist).subscribe((r) => {});
         e.stopPropagation();
     }
 
