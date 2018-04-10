@@ -1,5 +1,6 @@
 ca/polymtl/multisic/web/rest/errors/ExceptionTranslatorIntTest.class
 ca/polymtl/multisic/config/WebConfigurerTestController.class
+ca/polymtl/multisic/web/rest/PlayListResourceIntTest.class
 ca/polymtl/multisic/config/WebConfigurerTest$MockServletRegistration.class
 ca/polymtl/multisic/web/rest/TestUtil.class
 ca/polymtl/multisic/web/rest/errors/ExceptionTranslatorTestController.class
@@ -11,3 +12,4 @@ ca/polymtl/multisic/web/rest/util/PaginationUtilUnitTest.class
 ca/polymtl/multisic/web/rest/TestUtil$ZonedDateTimeMatcher.class
 ca/polymtl/multisic/config/WebConfigurerTest.class
 ca/polymtl/multisic/web/rest/ProfileInfoResourceIntTest.class
+ca/polymtl/multisic/web/rest/TrackResourceIntTest.class
